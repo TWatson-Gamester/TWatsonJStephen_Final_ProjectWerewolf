@@ -23,46 +23,33 @@ public class GameController {
         Roles seer = new Roles();
         seer.setName(RoleName.SEER);
 
-        Players p1 = new Players();
-        p1.setCurrentRole(villager);
-        p1.setDead(false);
-        p1.setVillage(true);
+        Players villagerPlayer = new Players();
+        villagerPlayer.setCurrentRole(villager);
+        villagerPlayer.setDead(false);
+        villagerPlayer.setVillage(true);
 
-        Players p2 = new Players();
-        p2.setCurrentRole(villager);
-        p2.setDead(false);
-        p2.setVillage(true);
+        Players werewolfPlayer = new Players();
+        werewolfPlayer.setCurrentRole(werewolf);
+        werewolfPlayer.setDead(false);
+        werewolfPlayer.setVillage(true);
 
-        Players p3 = new Players();
-        p3.setCurrentRole(villager);
-        p3.setDead(false);
-        p3.setVillage(true);
+        Players seerPlayer = new Players();
+        seerPlayer.setCurrentRole(seer);
+        seerPlayer.setDead(false);
+        seerPlayer.setVillage(true);
 
-        Players p4 = new Players();
-        p4.setCurrentRole(villager);
-        p4.setDead(false);
-        p4.setVillage(true);
-
-        Players p5 = new Players();
-        p5.setCurrentRole(werewolf);
-        p5.setDead(false);
-        p5.setVillage(true);
-
-        Players p6 = new Players();
-        p6.setCurrentRole(seer);
-        p6.setDead(false);
-        p6.setVillage(true);
-
-        originalCast.add(p1);
-        originalCast.add(p2);
-        originalCast.add(p3);
-        originalCast.add(p4);
-        originalCast.add(p5);
-        originalCast.add(p6);
+        originalCast.add(villagerPlayer);
+        originalCast.add(villagerPlayer);
+        originalCast.add(villagerPlayer);
+        originalCast.add(villagerPlayer);
+        originalCast.add(werewolfPlayer);
+        originalCast.add(seerPlayer);
 
         villagePeople = originalCast;
-
-        dayTime();
+        for(int i = 0; i < 3; i++) {
+            dayTime();
+            dayNumber++;
+        }
     }
 
     /**
