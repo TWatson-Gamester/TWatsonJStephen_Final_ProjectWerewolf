@@ -8,9 +8,9 @@ import models.Roles;
 import java.util.ArrayList;
 
 public class GameController {
-    private static ArrayList<Players> originalCast;
-    private static ArrayList<Players> villagePeople;
-    private static ArrayList<Players> graveyard;
+    private static ArrayList<Players> originalCast = new ArrayList<>();
+    private static ArrayList<Players> villagePeople = new ArrayList<>();
+    private static ArrayList<Players> graveyard = new ArrayList<>();
     private static boolean isDay = false;
     private static int dayNumber = 0;
 
@@ -46,10 +46,8 @@ public class GameController {
         originalCast.add(seerPlayer);
 
         villagePeople = originalCast;
-        for(int i = 0; i < 3; i++) {
-            dayTime();
-            dayNumber++;
-        }
+        dayTime();
+
     }
 
     /**
@@ -62,10 +60,10 @@ public class GameController {
      * Returning to the game for nighttime,
      */
     private static void dayTime(){
-        ConsoleIO.displayString("Day " + dayNumber + "\nDiscussion Time");
+        ConsoleIO.displayString("\nDay " + dayNumber + "\nDiscussion Time");
 
         //show Graveyard
-        ConsoleIO.displayString(outputGraveyard());
+        ConsoleIO.displayString("\n" + outputGraveyard());
 
         //discussion time
             //run until the moderator presses enter
@@ -83,9 +81,9 @@ public class GameController {
         if(peopleOnTrial > 0 && peopleOnTrial < 3){
             if(peopleOnTrial == 1){
 
-                int playerOnTrial = ConsoleIO.promptForInt("Seat of who is on trial: ", 1, villagePeople.size() + graveyard.size());
-                int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + playerOnTrial, 0, villagePeople.size());
-                votesToKill -= ConsoleIO.promptForInt("Votes to save player " + playerOnTrial, 0, villagePeople.size());
+                int playerOnTrial = ConsoleIO.promptForInt("Seat of who is on trial: ", 1, originalCast.size());
+                int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + playerOnTrial + ": ", 0, villagePeople.size());
+                votesToKill -= ConsoleIO.promptForInt("Votes to save player " + playerOnTrial + ": ", 0, villagePeople.size());
 
                 if(votesToKill > 0){
                     ConsoleIO.displayString("Player " + playerOnTrial + " has been sent to the graveyard.");
@@ -94,13 +92,13 @@ public class GameController {
 
             }else{
 
-                int firstOnTrial = ConsoleIO.promptForInt("Seat of the first person on trial on trial: ", 1, villagePeople.size() + graveyard.size());
-                int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill " + firstOnTrial, 0, villagePeople.size());
-                votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save " + firstOnTrial, 0, villagePeople.size());
+                int firstOnTrial = ConsoleIO.promptForInt("Seat of the first person on trial on trial: ", 1, originalCast.size());
+                int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill " + firstOnTrial + ": ", 0, villagePeople.size());
+                votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save " + firstOnTrial + ": ", 0, villagePeople.size());
 
-                int secondOnTrial = ConsoleIO.promptForInt("Seat of the second person on trial on trial: ", 1, villagePeople.size() + graveyard.size());
-                int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill " + secondOnTrial, 0, villagePeople.size());
-                votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save " + secondOnTrial, 0, villagePeople.size());
+                int secondOnTrial = ConsoleIO.promptForInt("Seat of the second person on trial on trial: ", 1, originalCast.size());
+                int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill " + secondOnTrial + ": ", 0, villagePeople.size());
+                votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save " + secondOnTrial + ": ", 0, villagePeople.size());
 
                 if(votesToKillPlayer1 > 0 || votesToKillPlayer2 > 0){
 
@@ -113,37 +111,17 @@ public class GameController {
                     }else{
                         ConsoleIO.displayString("There was a tie so nobody was killed, igor is pleased");
                     }
+                }else{
+                    ConsoleIO.displayString("There will be no trial tonight.");
                 }
             }
-        }else{
-            ConsoleIO.displayString("There will be no trial tonight.");
         }
 
-
-        //vote people off the island
-            //See how many people are on trial
-                //IF 1
-                    //get votes to kill and votes to save
-                    //see if more to kill or more to save
-                //IF 2
-                    //get votes to kill or save for player 1
-                    //get votes to kill or save player 2
-                    //make sure at least one of them has at least 1 vote to kill
-                        //IF at least 1 has more than 1 vote to kill
-                            //see who has more votes and set them to be killed
-                            //if they are tied nobody dies
-                        //ELSE
-                            //both people live
-
-            //IF someone dies, send to graveyard
-            //ELSE continue
-
-
         //show Graveyard
-        ConsoleIO.displayString(outputGraveyard());
+        ConsoleIO.displayString("\n" + outputGraveyard());
 
         ConsoleIO.displayString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
-                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...");
+                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n");
     }
 
     private static void nightTime(){
