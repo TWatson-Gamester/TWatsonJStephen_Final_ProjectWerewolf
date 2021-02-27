@@ -8,9 +8,9 @@ import models.Roles;
 import java.util.ArrayList;
 
 public class GameController {
-    private static ArrayList<Players> originalCast;
-    private static ArrayList<Players> villagePeople;
-    private static ArrayList<Players> graveyard;
+    private static ArrayList<Players> originalCast = new ArrayList<>();
+    private static ArrayList<Players> villagePeople = new ArrayList<>();
+    private static ArrayList<Players> graveyard = new ArrayList<>();
     private static boolean isDay = false;
     private static int dayNumber = 0;
 
@@ -147,7 +147,20 @@ public class GameController {
     }
 
     private static void nightTime(){
-
+        //Seer
+        for(Players seer : villagePeople){
+            if(seer.getCurrentRole().getName() == RoleName.SEER){
+                searchPlayer(RoleName.SEER);
+            }
+        }
+        //Werewolf
+        String[] menuOptions = new String[villagePeople.size()];
+        for(int i = 0; i < villagePeople.size(); i++){
+            menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
+        }
+        ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
+        int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+        sendToGrave(originalCast.get(playerToRemove-1),false);
     }
 
     /**
@@ -163,6 +176,7 @@ public class GameController {
         int searchedPerson;
         switch (searcher){
             case SEER:
+                ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
                 if(villagePeople.get(searchedPerson).isVillage()){
                     ConsoleIO.displayString("Is on Village team");
@@ -185,7 +199,7 @@ public class GameController {
             for(Players deadPeople : graveyard){
                 igor.append("Player ").append(deadPeople.getSeatNumber()).append(" Role: ");
                 if(deadPeople.getOpenGrave()){
-                    igor.append(deadPeople.getCurrentRole());
+                    igor.append(deadPeople.getCurrentRole().getName());
                 } else{
                     igor.append("Unknown");
                 }
@@ -206,11 +220,7 @@ public class GameController {
     private static void sendToGrave(Players player, boolean openGrave){
         villagePeople.remove(player);
         graveyard.add(player);
-        if(openGrave){
-            player.setOpenGrave(true);
-        }else{
-            player.setOpenGrave(false);
-        }
+        player.setOpenGrave(openGrave);
     }
 
     private static void discussionTime(){
