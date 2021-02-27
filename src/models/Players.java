@@ -75,6 +75,4 @@ public class Players {
     public void setLovers(boolean lovers) {
         isLovers = lovers;
     }
-
-
 }
