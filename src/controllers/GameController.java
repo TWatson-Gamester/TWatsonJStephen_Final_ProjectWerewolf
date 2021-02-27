@@ -8,9 +8,9 @@ import models.Roles;
 import java.util.ArrayList;
 
 public class GameController {
-    private static ArrayList<Players> originalCast;
-    private static ArrayList<Players> villagePeople;
-    private static ArrayList<Players> graveyard;
+    private static ArrayList<Players> originalCast = new ArrayList<>();
+    private static ArrayList<Players> villagePeople = new ArrayList<>();
+    private static ArrayList<Players> graveyard = new ArrayList<>();
     private static boolean isDay = false;
 
     public static void runGame(){
@@ -24,7 +24,7 @@ public class GameController {
     private static void nightTime(){
         //Seer
         for(Players seer : villagePeople){
-            if(seer.getCurrentRole().equals(RoleName.SEER)){
+            if(seer.getCurrentRole().getName() == RoleName.SEER){
                 searchPlayer(RoleName.SEER);
             }
         }
@@ -74,7 +74,7 @@ public class GameController {
             for(Players deadPeople : graveyard){
                 igor.append("Player ").append(deadPeople.getSeatNumber()).append(" Role: ");
                 if(deadPeople.getOpenGrave()){
-                    igor.append(deadPeople.getCurrentRole());
+                    igor.append(deadPeople.getCurrentRole().getName());
                 } else{
                     igor.append("Unknown");
                 }
@@ -95,11 +95,7 @@ public class GameController {
     private static void sendToGrave(Players player, boolean openGrave){
         villagePeople.remove(player);
         graveyard.add(player);
-        if(openGrave){
-            player.setOpenGrave(true);
-        }else{
-            player.setOpenGrave(false);
-        }
+        player.setOpenGrave(openGrave);
     }
 
     private static void discussionTime(){
