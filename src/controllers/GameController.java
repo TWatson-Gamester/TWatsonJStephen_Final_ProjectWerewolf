@@ -3,10 +3,12 @@ package controllers;
 import lib.ConsoleIO;
 import models.Players;
 import models.RoleName;
+import models.Roles;
 
 import java.util.ArrayList;
 
 public class GameController {
+    private static ArrayList<Players> originalCast;
     private static ArrayList<Players> villagePeople;
     private static ArrayList<Players> graveyard;
     private static boolean isDay = false;
@@ -20,7 +22,20 @@ public class GameController {
     }
 
     private static void nightTime(){
-
+        //Seer
+        for(Players seer : villagePeople){
+            if(seer.getCurrentRole().equals(RoleName.SEER)){
+                searchPlayer(RoleName.SEER);
+            }
+        }
+        //Werewolf
+        String[] menuOptions = new String[villagePeople.size()];
+        for(int i = 0; i < villagePeople.size(); i++){
+            menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
+        }
+        ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
+        int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+        sendToGrave(originalCast.get(playerToRemove-1),false);
     }
 
     /**
@@ -36,6 +51,7 @@ public class GameController {
         int searchedPerson;
         switch (searcher){
             case SEER:
+                ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
                 if(villagePeople.get(searchedPerson).isVillage()){
                     ConsoleIO.displayString("Is on Village team");
