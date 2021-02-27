@@ -1,5 +1,7 @@
 package com.company;
 
+import controllers.GameController;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,5 +9,6 @@ public class Main {
         //This is Tommy Testing the GitHub
         //OwO
         //Testing the branch
+        GameController.runGame();
     }
 }
