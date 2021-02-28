@@ -60,14 +60,16 @@ public class GameController {
      * Returning to the game for nighttime,
      */
     private static void dayTime() {
-        ConsoleIO.displayString("\nDay " + dayNumber + "\nDiscussion Time");
+        ConsoleIO.displayString("\nDay " + dayNumber);
 
         //show Graveyard
         ConsoleIO.displayString("\n" + outputGraveyard());
 
         //discussion time
         //run until the moderator presses enter
-        ConsoleIO.promptForString("Press enter when discussion time is over.", true);
+        ConsoleIO.promptForString("It is now discussion time\n" +
+                "Press enter when discussion time is over.", true);
+        ConsoleIO.displayString("");
 
         //put people on trial
         //ask who they want to put on trial
@@ -190,12 +192,12 @@ public class GameController {
 
     private static void votingTime(int player1, int player2) {
 
-        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill " + player1 + ": ", 0, villagePeople.size());
-        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save " + player1 + ": ", 0, villagePeople.size());
+        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player" + player1 + ": ", 0, villagePeople.size());
+        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save player" + player1 + ": ", 0, villagePeople.size());
 
 
-        int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill " + player2 + ": ", 0, villagePeople.size());
-        votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save " + player2 + ": ", 0, villagePeople.size());
+        int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill player " + player2 + ": ", 0, villagePeople.size());
+        votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save player " + player2 + ": ", 0, villagePeople.size());
 
         if (votesToKillPlayer1 > 0 || votesToKillPlayer2 > 0) {
 
