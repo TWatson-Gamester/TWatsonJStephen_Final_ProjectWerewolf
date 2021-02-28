@@ -180,6 +180,7 @@ public class GameController {
     private static void sendToGrave(Players player, boolean openGrave){
         villagePeople.remove(player);
         graveyard.add(player);
+        player.setDead(true);
         player.setOpenGrave(openGrave);
     }
 
@@ -237,4 +238,42 @@ public class GameController {
         }
     }
 
+    /**
+     * Checks if either of the teams have won
+     * @return if the game needs to end
+     */
+    private static boolean checkForWinCondition(){
+        boolean endGame = false;
+        StringBuilder littleTimmy = new StringBuilder();
+        int villageTeam = 0;
+        int werewolfTeam = 0;
+        for(Players player : villagePeople){
+            if(player.isVillage()){
+                villageTeam++;
+            } else{
+                werewolfTeam++;
+            }
+        }
+        //If Werewolf Team has met victory conditions
+        if(villagePeople.size() == 0 || werewolfTeam >= villageTeam){
+            endGame = true;
+            littleTimmy.append("Werewolves Win!");
+            for(Players player : originalCast){
+                if(!player.isVillage()){
+                    littleTimmy.append("Player ").append(player.getSeatNumber());
+                }
+            }
+            //If Village Team has met victory conditions
+        }else if(werewolfTeam == 0){
+            endGame = true;
+            littleTimmy.append("Village Wins!");
+            for(Players player : originalCast){
+                if(player.isVillage()){
+                    littleTimmy.append("Player ").append(player.getSeatNumber());
+                }
+            }
+        }
+        ConsoleIO.displayString(littleTimmy.toString());
+        return endGame;
+    }
 }
