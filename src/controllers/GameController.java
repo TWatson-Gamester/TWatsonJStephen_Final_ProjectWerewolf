@@ -14,7 +14,7 @@ public class GameController {
     private static boolean isDay = false;
     private static int dayNumber = 0;
 
-    public static void runGame() {
+    public static void runGame(){
 
         Roles villager = new Roles();
         villager.setName(RoleName.VILLAGER);
@@ -100,28 +100,41 @@ public class GameController {
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n");
     }
 
-    private static void nightTime() {
-
+    private static void nightTime(){
+        //Seer
+        for(Players seer : villagePeople){
+            if(seer.getCurrentRole().getName() == RoleName.SEER){
+                searchPlayer(RoleName.SEER);
+            }
+        }
+        //Werewolf
+        String[] menuOptions = new String[villagePeople.size()];
+        for(int i = 0; i < villagePeople.size(); i++){
+            menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
+        }
+        ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
+        int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+        sendToGrave(originalCast.get(playerToRemove-1),false);
     }
 
     /**
      * This method takes in a Players Role and switches off of that to figure out information about their fellow players,
      * should only be used by the players that actually have a role that lets them investigates.
-     *
      * @param searcher: the player / role that is investigating something about a player
      */
-    private static void searchPlayer(RoleName searcher) {
+    private static void searchPlayer(RoleName searcher){
         String[] menuOptions = new String[villagePeople.size()];
-        for (int i = 0; i < villagePeople.size(); i++) {
+        for(int i = 0; i < villagePeople.size(); i++){
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
         }
         int searchedPerson;
-        switch (searcher) {
+        switch (searcher){
             case SEER:
-                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions, false);
-                if (villagePeople.get(searchedPerson).isVillage()) {
+                ConsoleIO.displayString("Seer please choose a player to investigate");
+                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
+                if(villagePeople.get(searchedPerson).isVillage()){
                     ConsoleIO.displayString("Is on Village team");
-                } else {
+                } else{
                     ConsoleIO.displayString("Is on Werewolf team");
                 }
                 break;
@@ -132,22 +145,21 @@ public class GameController {
 
     /**
      * Outputs the players that have died in the game, and if the player's role is allowed to be revealed
-     *
      * @return The String of the players that have died
      */
-    private static String outputGraveyard() {
+    private static String outputGraveyard(){
         StringBuilder igor = new StringBuilder("The current dead players are: \n");
-        if (graveyard.size() != 0) {
-            for (Players deadPeople : graveyard) {
+        if(graveyard.size() != 0){
+            for(Players deadPeople : graveyard){
                 igor.append("Player ").append(deadPeople.getSeatNumber()).append(" Role: ");
-                if (deadPeople.getOpenGrave()) {
-                    igor.append(deadPeople.getCurrentRole());
-                } else {
+                if(deadPeople.getOpenGrave()){
+                    igor.append(deadPeople.getCurrentRole().getName());
+                } else{
                     igor.append("Unknown");
                 }
                 igor.append('\n');
             }
-        } else {
+        }else{
             igor.append("Igor hasn't had to do anything yet, he is very happy\n");
         }
         return igor.toString();
@@ -156,25 +168,20 @@ public class GameController {
     /**
      * Removes player from villagePeople and adds them to the graveyard, also sets if their
      * role is allowed to be seen by the other players
-     *
-     * @param player:    the player that is getting sent to the graveyard
+     * @param player: the player that is getting sent to the graveyard
      * @param openGrave: is the player's role to be revealed
      */
-    private static void sendToGrave(Players player, boolean openGrave) {
+    private static void sendToGrave(Players player, boolean openGrave){
         villagePeople.remove(player);
         graveyard.add(player);
-        if (openGrave) {
-            player.setOpenGrave(true);
-        } else {
-            player.setOpenGrave(false);
-        }
+        player.setOpenGrave(openGrave);
     }
 
-    private static void discussionTime() {
+    private static void discussionTime(){
 
     }
 
-    private static void trialTime() {
+    private static void trialTime(){
 
     }
 
