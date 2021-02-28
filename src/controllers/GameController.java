@@ -14,7 +14,7 @@ public class GameController {
     private static boolean isDay = false;
     private static int dayNumber = 0;
 
-    public static void runGame(){
+    public static void runGame() {
 
         Roles villager = new Roles();
         villager.setName(RoleName.VILLAGER);
@@ -59,62 +59,36 @@ public class GameController {
      * Showing the graveyard a second time,
      * Returning to the game for nighttime,
      */
-    private static void dayTime(){
+    private static void dayTime() {
         ConsoleIO.displayString("\nDay " + dayNumber + "\nDiscussion Time");
 
         //show Graveyard
         ConsoleIO.displayString("\n" + outputGraveyard());
 
         //discussion time
-            //run until the moderator presses enter
-        ConsoleIO.promptForString("Press enter when discussion time is over.",true);
+        //run until the moderator presses enter
+        ConsoleIO.promptForString("Press enter when discussion time is over.", true);
 
         //put people on trial
-            //ask who they want to put on trial
-            //whoever has the most votes is put to trial
-            //IF there are 3 or more people tied to be put on trial, say there is no conclusion and skip trial
-            //IF nobody is put on trial, say nobody was put on trial, then skip the trial
-            //IF 1 or 2 people are on trial run the trial
+        //ask who they want to put on trial
+        //whoever has the most votes is put to trial
+        //IF there are 3 or more people tied to be put on trial, say there is no conclusion and skip trial
+        //IF nobody is put on trial, say nobody was put on trial, then skip the trial
+        //IF 1 or 2 people are on trial run the trial
 
         int peopleOnTrial = ConsoleIO.promptForInt("How many people are voted to be on trial", Integer.MIN_VALUE, Integer.MAX_VALUE);
 
-        if(peopleOnTrial > 0 && peopleOnTrial < 3){
-            if(peopleOnTrial == 1){
-
+        if (peopleOnTrial > 0 && peopleOnTrial < 3) {
+            if (peopleOnTrial == 1) {
                 int playerOnTrial = ConsoleIO.promptForInt("Seat of who is on trial: ", 1, originalCast.size());
-                int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + playerOnTrial + ": ", 0, villagePeople.size());
-                votesToKill -= ConsoleIO.promptForInt("Votes to save player " + playerOnTrial + ": ", 0, villagePeople.size());
-
-                if(votesToKill > 0){
-                    ConsoleIO.displayString("Player " + playerOnTrial + " has been sent to the graveyard.");
-                    sendToGrave(originalCast.get(playerOnTrial - 1),true);
-                }
-
-            }else{
-
+                votingTime(playerOnTrial);
+            } else {
                 int firstOnTrial = ConsoleIO.promptForInt("Seat of the first person on trial on trial: ", 1, originalCast.size());
-                int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill " + firstOnTrial + ": ", 0, villagePeople.size());
-                votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save " + firstOnTrial + ": ", 0, villagePeople.size());
-
                 int secondOnTrial = ConsoleIO.promptForInt("Seat of the second person on trial on trial: ", 1, originalCast.size());
-                int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill " + secondOnTrial + ": ", 0, villagePeople.size());
-                votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save " + secondOnTrial + ": ", 0, villagePeople.size());
-
-                if(votesToKillPlayer1 > 0 || votesToKillPlayer2 > 0){
-
-                    if(votesToKillPlayer1 > votesToKillPlayer2){
-                        ConsoleIO.displayString("Player " + firstOnTrial + " has been sent to the graveyard.");
-                        sendToGrave(originalCast.get(firstOnTrial - 1),true);
-                    }else if(votesToKillPlayer1 < votesToKillPlayer2){
-                        ConsoleIO.displayString("Player " + secondOnTrial + " has been sent to the graveyard.");
-                        sendToGrave(originalCast.get(secondOnTrial - 1),true);
-                    }else{
-                        ConsoleIO.displayString("There was a tie so nobody was killed, igor is pleased");
-                    }
-                }else{
-                    ConsoleIO.displayString("There will be no trial tonight.");
-                }
+                votingTime(firstOnTrial, secondOnTrial);
             }
+        } else {
+            ConsoleIO.displayString("There will be no trial tonight");
         }
 
         //show Graveyard
@@ -124,27 +98,28 @@ public class GameController {
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n");
     }
 
-    private static void nightTime(){
+    private static void nightTime() {
 
     }
 
     /**
      * This method takes in a Players Role and switches off of that to figure out information about their fellow players,
      * should only be used by the players that actually have a role that lets them investigates.
+     *
      * @param searcher: the player / role that is investigating something about a player
      */
-    private static void searchPlayer(RoleName searcher){
+    private static void searchPlayer(RoleName searcher) {
         String[] menuOptions = new String[villagePeople.size()];
-        for(int i = 0; i < villagePeople.size(); i++){
+        for (int i = 0; i < villagePeople.size(); i++) {
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
         }
         int searchedPerson;
-        switch (searcher){
+        switch (searcher) {
             case SEER:
-                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
-                if(villagePeople.get(searchedPerson).isVillage()){
+                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions, false);
+                if (villagePeople.get(searchedPerson).isVillage()) {
                     ConsoleIO.displayString("Is on Village team");
-                } else{
+                } else {
                     ConsoleIO.displayString("Is on Werewolf team");
                 }
                 break;
@@ -155,21 +130,22 @@ public class GameController {
 
     /**
      * Outputs the players that have died in the game, and if the player's role is allowed to be revealed
+     *
      * @return The String of the players that have died
      */
-    private static String outputGraveyard(){
+    private static String outputGraveyard() {
         StringBuilder igor = new StringBuilder("The current dead players are: \n");
-        if(graveyard.size() != 0){
-            for(Players deadPeople : graveyard){
+        if (graveyard.size() != 0) {
+            for (Players deadPeople : graveyard) {
                 igor.append("Player ").append(deadPeople.getSeatNumber()).append(" Role: ");
-                if(deadPeople.getOpenGrave()){
+                if (deadPeople.getOpenGrave()) {
                     igor.append(deadPeople.getCurrentRole());
-                } else{
+                } else {
                     igor.append("Unknown");
                 }
                 igor.append('\n');
             }
-        }else{
+        } else {
             igor.append("Igor hasn't had to do anything yet, he is very happy\n");
         }
         return igor.toString();
@@ -178,33 +154,63 @@ public class GameController {
     /**
      * Removes player from villagePeople and adds them to the graveyard, also sets if their
      * role is allowed to be seen by the other players
-     * @param player: the player that is getting sent to the graveyard
+     *
+     * @param player:    the player that is getting sent to the graveyard
      * @param openGrave: is the player's role to be revealed
      */
-    private static void sendToGrave(Players player, boolean openGrave){
+    private static void sendToGrave(Players player, boolean openGrave) {
         villagePeople.remove(player);
         graveyard.add(player);
-        if(openGrave){
+        if (openGrave) {
             player.setOpenGrave(true);
-        }else{
+        } else {
             player.setOpenGrave(false);
         }
     }
 
-    private static void discussionTime(){
+    private static void discussionTime() {
 
     }
 
-    private static void trialTime(){
+    private static void trialTime() {
 
     }
 
-    private static void votingTime(Players player){
+    private static void votingTime(int player) {
+        int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + player + ": ", 0, villagePeople.size());
+        votesToKill -= ConsoleIO.promptForInt("Votes to save player " + player + ": ", 0, villagePeople.size());
 
+        if (votesToKill > 0) {
+            ConsoleIO.displayString("Player " + player + " has been sent to the graveyard.");
+            sendToGrave(originalCast.get(player - 1), true);
+        } else {
+            ConsoleIO.displayString("There was a tie so nobody was killed, Igor is pleased");
+        }
     }
 
-    private static void votingTime(Players player1, Players player2){
+    private static void votingTime(int player1, int player2) {
 
+        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill " + player1 + ": ", 0, villagePeople.size());
+        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save " + player1 + ": ", 0, villagePeople.size());
+
+
+        int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill " + player2 + ": ", 0, villagePeople.size());
+        votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save " + player2 + ": ", 0, villagePeople.size());
+
+        if (votesToKillPlayer1 > 0 || votesToKillPlayer2 > 0) {
+
+            if (votesToKillPlayer1 > votesToKillPlayer2) {
+                ConsoleIO.displayString("Player " + player1 + " has been sent to the graveyard.");
+                sendToGrave(originalCast.get(player1 - 1), true);
+            } else if (votesToKillPlayer1 < votesToKillPlayer2) {
+                ConsoleIO.displayString("Player " + player2 + " has been sent to the graveyard.");
+                sendToGrave(originalCast.get(player2 - 1), true);
+            } else {
+                ConsoleIO.displayString("There was a tie so nobody was killed, Igor is pleased");
+            }
+        } else {
+            ConsoleIO.displayString("Neither player had enough votes to kill so nobody will die. Igor is pleased.");
+        }
     }
 
 }
