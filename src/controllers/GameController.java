@@ -191,6 +191,10 @@ public class GameController {
 
     }
 
+    /**
+     * This method takes in who is put on trial and figures out of they will be killed or not
+     * @param player this is the player who has been put on trial
+     */
     private static void votingTime(int player) {
         int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + player + ": ", 0, villagePeople.size());
         votesToKill -= ConsoleIO.promptForInt("Votes to save player " + player + ": ", 0, villagePeople.size());
@@ -203,6 +207,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Takes in two players who have been put up on trial and decides who will die
+     * @param player1 the first player on trial
+     * @param player2 the second player on trial
+     */
     private static void votingTime(int player1, int player2) {
 
         int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player" + player1 + ": ", 0, villagePeople.size());
