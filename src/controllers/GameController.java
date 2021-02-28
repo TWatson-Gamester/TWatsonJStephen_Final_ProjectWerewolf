@@ -100,6 +100,12 @@ public class GameController {
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n");
     }
 
+    /**
+     * Goes through each night time even and sees if it needs to wake that player up or not
+     * Switch Cases:
+     *      Seer - Investigates the players that are alive for a werewolf
+     *      Werewolf / Werewolves kill a player
+     */
     private static void nightTime(){
         //Seer
         for(Players seer : villagePeople){
