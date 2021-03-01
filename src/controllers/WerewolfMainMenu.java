@@ -95,265 +95,91 @@ public class WerewolfMainMenu {
         String fileName = "Preset";
         createDirectory("GameDirectory");
         for(int i = 6; i <= 20; i++) {
+            writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i);
             switch (i) {
-                case 6:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nWEREWOLF"
+                case 16:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "CULT_LEADER"
                     );
-                    break;
-                case 7:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nHUNTER" +
-                            "\nWEREWOLF"
+                case 15:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "LYCAN"
                     );
-                    break;
-                case 8:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nWEREWOLF"
+                case 14:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "CURSED"
                     );
-                    break;
-                case 9:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF"
+                case 13:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "TANNER"
                     );
-                    break;
-                case 10:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF"
+                case 12:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "WOLF_CUB"
                     );
-                    break;
                 case 11:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i + "\n" +
-                            "VILLAGER\n" +
-                            "VILLAGER\n" +
-                            "VILLAGER\n" +
-                            "VILLAGER\n" +
-                            "SEER\n" +
-                            "APPRENTICE_SEER\n" +
-                            "HUNTER\n" +
-                            "BODYGUARD\n" +
-                            "CUPID\n" +
-                            "WEREWOLF\n" +
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "CUPID"
+                    );
+                case 10:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "APPRENTICE_SEER"
+                    );
+                case 9:
+                    addTextToFile(dirName + "/" + fileName + i,
                             "WEREWOLF"
                     );
-                    break;
-                case 12:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB"
+                case 8:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "BODYGUARD"
                     );
-                    break;
-                case 13:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nTANNER"
+                case 7:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "HUNTER"
                     );
-                    break;
-                case 14:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nTANNER"
-                    );
-                    break;
-                case 15:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nLYCAN" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nTANNER"
-                    );
+                case 6:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "VILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nSEER" +
+                                    "\nWEREWOLF");
                     break;
 
-                case 16:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nLYCAN" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nTANNER" +
-                            "\nCULT_LEADER"
+                case 20:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "WITCH"
                     );
-                    break;
-
-                case 17:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nMASON" +
-                            "\nMASON" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nTANNER" +
-                            "\nCULT_LEADER"
-                    );
-                    break;
-
-                case 18:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nLYCAN" +
-                            "\nMASON" +
-                            "\nMASON" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nTANNER" +
-                            "\nCULT_LEADER"
-                    );
-                    break;
-
                 case 19:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nLYCAN" +
-                            "\nMASON" +
-                            "\nMASON" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nLONE_WOLF" +
-                            "\nTANNER" +
-                            "\nCULT_LEADER"
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "LONE_WOLF"
+                    );
+                case 18:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "LYCAN"
+                    );
+                case 17:
+                    addTextToFile(dirName + "/" + fileName + i,
+                            "VILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nVILLAGER" +
+                                    "\nSEER" +
+                                    "\nAPPRENTICE_SEER" +
+                                    "\nHUNTER" +
+                                    "\nBODYGUARD" +
+                                    "\nCUPID" +
+                                    "\nMASON" +
+                                    "\nMASON" +
+                                    "\nWEREWOLF" +
+                                    "\nWEREWOLF" +
+                                    "\nWOLF_CUB" +
+                                    "\nCURSED" +
+                                    "\nTANNER" +
+                                    "\nCULT_LEADER"
                     );
                     break;
-                default:
-                    writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nVILLAGER" +
-                            "\nSEER" +
-                            "\nAPPRENTICE_SEER" +
-                            "\nHUNTER" +
-                            "\nBODYGUARD" +
-                            "\nCUPID" +
-                            "\nLYCAN" +
-                            "\nMASON" +
-                            "\nMASON" +
-                            "\nWITCH" +
-                            "\nWEREWOLF" +
-                            "\nWEREWOLF" +
-                            "\nWOLF_CUB" +
-                            "\nCURSED" +
-                            "\nLONE_WOLF" +
-                            "\nTANNER" +
-                            "\nCULT_LEADER"
-                    );
             }
         }
     }
@@ -370,6 +196,18 @@ public class WerewolfMainMenu {
         }catch(IOException ioe){
             System.out.println("An error has occurred");
         }
+    }
+
+    public static void addTextToFile(String filePath, String text){
+
+        text = readTextFromFile(filePath) + "\n" + text;
+
+        try(FileWriter myWriter = new FileWriter(filePath)){
+            myWriter.write(text);
+        }catch(IOException ioe){
+            System.out.println("An error has occurred");
+        }
+
     }
 
     private static String readTextFromFile(String filePath){
