@@ -48,6 +48,16 @@ public class GameController {
         villagePeople = originalCast;
         dayTime();
 
+        do{
+            if(isDay){
+                dayNumber++;
+                dayTime();
+                isDay = false;
+            }else{
+                nightTime();
+                isDay = true;
+            }
+        }while(!checkForWinCondition());
     }
 
     /**
