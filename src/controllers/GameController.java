@@ -130,6 +130,7 @@ public class GameController {
         }
         ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
         int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+        ConsoleIO.clearScreen();
         sendToGrave(originalCast.get(playerToRemove-1),false);
     }
 
@@ -157,6 +158,8 @@ public class GameController {
             default:
                 ConsoleIO.displayString("How did you even get here???");
         }
+        ConsoleIO.promptForString("Press Enter to Continue", true);
+        ConsoleIO.clearScreen();
     }
 
     /**
