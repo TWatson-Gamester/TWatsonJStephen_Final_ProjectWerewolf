@@ -407,7 +407,7 @@ public class WerewolfMainMenu {
      * @param filePath
      * @param text
      */
-    public static void addTextToFile(String filePath, String text){
+    private static void addTextToFile(String filePath, String text){
 
         text = readTextFromFile(filePath) + "\n" + text;
 
