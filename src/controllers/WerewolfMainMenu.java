@@ -286,6 +286,7 @@ public class WerewolfMainMenu {
                 Players villagePlayer = new Players();
                 villagePlayer.setCurrentRole(roleToAdd);
                 villagePlayer.setVillage(true);
+                villagePlayer.setSeatNumber(seatNumber);
                 playersInGame.add(villagePlayer);
                 break;
             case LONE_WOLF:
@@ -294,6 +295,7 @@ public class WerewolfMainMenu {
                 Players werewolfPlayer = new Players();
                 werewolfPlayer.setCurrentRole(roleToAdd);
                 werewolfPlayer.setVillage(false);
+                werewolfPlayer.setSeatNumber(seatNumber);
                 playersInGame.add(werewolfPlayer);
                 break;
         }
