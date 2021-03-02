@@ -231,6 +231,10 @@ public class WerewolfMainMenu {
 
     }
 
+    /**
+     * Adds roles to the array list
+     * @param roleToAdd the role you with to add to the list (String)
+     */
     private static void addToArray(String roleToAdd){
 
         switch (roleToAdd) {
@@ -355,6 +359,7 @@ public class WerewolfMainMenu {
                 rolesInGame.add(masonPlayer);
         }
     }
+
     /**
      * Needs to be finished
      * @param directory
