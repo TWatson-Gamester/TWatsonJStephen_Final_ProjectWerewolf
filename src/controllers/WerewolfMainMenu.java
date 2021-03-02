@@ -98,25 +98,36 @@ public class WerewolfMainMenu {
      * Makes a custom game that can be used for games
      */
     private static void makeCustom(){
-        String nameOfFile = ConsoleIO.promptForString("What would you like to name this file: ", false);
-        //Check to see if this is an allowed file name
+        boolean invalidName = true;
+
+        do {
+            String nameOfFile = ConsoleIO.promptForString("What would you like to name this file: ", false);
+            //Check to see if this is an allowed file name
+            if(new File(dirName + "/" + nameOfFile).exists()){
+                ConsoleIO.displayString("The file you are attempting to create already exists, please enter another name");
+            }else{
+                ConsoleIO.displayString("Your file \"" + nameOfFile + "\" has been created in the \"" + dirName + "\" folder");
+                invalidName = false;
+            }
+        }while(invalidName);
+
         int numberOfPlayers = ConsoleIO.promptForInt("How many players are there: ", 6, 20);
         String[] availableRoles = {
-            "VILLAGER +1",
-            "WEREWOLF -6",
-            "SEER +7",
-            "HUNTER +3",
-            "BODYGUARD +3",
-            "APPRENTICE_SEER +4",
-            "CUPID -3",
-            "WOLF_CUB -8",
-            "TANNER -2",
-            "CURSED -3",
-            "LYCAN -1",
-            "CULT_LEADER +1",
-            "MASON +2",
-            "LONE_WOLF -5",
-            "WITCH +4"
+            "VILLAGER",
+            "WEREWOLF",
+            "SEER",
+            "HUNTER",
+            "BODYGUARD",
+            "APPRENTICE_SEER",
+            "CUPID",
+            "WOLF_CUB",
+            "TANNER",
+            "CURSED",
+            "LYCAN",
+            "CULT_LEADER",
+            "MASON",
+            "LONE_WOLF",
+            "WITCH"
         };
         ArrayList<String> addedRoles = new ArrayList<>();
         for(int i = 0; i < numberOfPlayers; i++){
