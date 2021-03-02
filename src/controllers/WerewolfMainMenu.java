@@ -117,9 +117,8 @@ public class WerewolfMainMenu {
      * Creates the preset games
      */
     private static void createPresets(){
-        String dirName = "GameDirectory";
         String fileName = "Preset";
-        createDirectory("GameDirectory");
+        createDirectory(dirName);
         for(int i = 6; i <= 20; i++) {
             writeTextToFile(dirName + "/" + fileName + i, "Preset " + i + "\n" + i);
             switch (i) {
@@ -207,6 +206,157 @@ public class WerewolfMainMenu {
                     );
                     break;
             }
+        }
+    }
+
+    /**
+     * Gets roles from a selected file
+     *
+     */
+    private static void readRolesFromFile(String fileName){
+
+        try{
+            BufferedReader buffy = new BufferedReader(new FileReader(dirName + "/" + fileName));
+            buffy.readLine();
+            String players = buffy.readLine();
+            int numOfCharacters = Integer.valueOf(players);
+
+            for(int i = 0; i < numOfCharacters; i++){
+
+                String currentCharacter = buffy.readLine();
+                addToArray(currentCharacter);
+
+            }
+        }catch(IOException ioe){ConsoleIO.displayString("The file could not be found");}
+
+    }
+
+    /**
+     * Adds roles to the array list
+     * @param roleToAdd the role you with to add to the list (String)
+     */
+    private static void addToArray(String roleToAdd){
+
+        switch (roleToAdd) {
+            case "VILLAGER":
+                Roles villager = new Roles();
+                villager.setName(RoleName.VILLAGER);
+                Players villagerPlayer = new Players();
+                villagerPlayer.setCurrentRole(villager);
+                villagerPlayer.setVillage(true);
+                rolesInGame.add(villagerPlayer);
+                break;
+            case "SEER":
+                Roles seer = new Roles();
+                seer.setName(RoleName.SEER);
+                Players seerPlayer = new Players();
+                seerPlayer.setCurrentRole(seer);
+                seerPlayer.setVillage(true);
+                rolesInGame.add(seerPlayer);
+                break;
+            case "WEREWOLF":
+                Roles werewolf = new Roles();
+                werewolf.setName(RoleName.WEREWOLF);
+                Players werewolfPlayer = new Players();
+                werewolfPlayer.setCurrentRole(werewolf);
+                werewolfPlayer.setVillage(false);
+                rolesInGame.add(werewolfPlayer);
+                break;
+            case "CULT_LEADER":
+                Roles cultLeader = new Roles();
+                cultLeader.setName(RoleName.CULT_LEADER);
+                Players cultLeaderPlayer = new Players();
+                cultLeaderPlayer.setCurrentRole(cultLeader);
+                cultLeaderPlayer.setVillage(true);
+                rolesInGame.add(cultLeaderPlayer);
+                break;
+            case "LYCAN":
+                Roles lycan = new Roles();
+                lycan.setName(RoleName.LYCAN);
+                Players lycanPlayer = new Players();
+                lycanPlayer.setCurrentRole(lycan);
+                lycanPlayer.setVillage(true);
+                rolesInGame.add(lycanPlayer);
+                break;
+            case "CURSED":
+                Roles cursed = new Roles();
+                cursed.setName(RoleName.CURSED);
+                Players cursedPlayer = new Players();
+                cursedPlayer.setCurrentRole(cursed);
+                cursedPlayer.setVillage(true);
+                rolesInGame.add(cursedPlayer);
+                break;
+            case "TANNER":
+                Roles tanner = new Roles();
+                tanner.setName(RoleName.TANNER);
+                Players tannerPlayer = new Players();
+                tannerPlayer.setCurrentRole(tanner);
+                tannerPlayer.setVillage(true);
+                rolesInGame.add(tannerPlayer);
+                break;
+            case "WOLF_CUB":
+                Roles wolfCub = new Roles();
+                wolfCub.setName(RoleName.WOLF_CUB);
+                Players wolfCubPlayer = new Players();
+                wolfCubPlayer.setCurrentRole(wolfCub);
+                wolfCubPlayer.setVillage(false);
+                rolesInGame.add(wolfCubPlayer);
+                break;
+            case "CUPID":
+                Roles cupid = new Roles();
+                cupid.setName(RoleName.CUPID);
+                Players cupidPlayer = new Players();
+                cupidPlayer.setCurrentRole(cupid);
+                cupidPlayer.setVillage(true);
+                rolesInGame.add(cupidPlayer);
+                break;
+            case "APPRENTICE_SEER":
+                Roles apprenticeSeer = new Roles();
+                apprenticeSeer.setName(RoleName.APPRENTICE_SEER);
+                Players apprenticeSeerPlayer = new Players();
+                apprenticeSeerPlayer.setCurrentRole(apprenticeSeer);
+                apprenticeSeerPlayer.setVillage(true);
+                rolesInGame.add(apprenticeSeerPlayer);
+                break;
+            case "BODYGUARD":
+                Roles bodyguard = new Roles();
+                bodyguard.setName(RoleName.BODYGUARD);
+                Players bodyguardPlayer = new Players();
+                bodyguardPlayer.setCurrentRole(bodyguard);
+                bodyguardPlayer.setVillage(true);
+                rolesInGame.add(bodyguardPlayer);
+                break;
+            case "HUNTER":
+                Roles hunter = new Roles();
+                hunter.setName(RoleName.HUNTER);
+                Players hunterPlayer = new Players();
+                hunterPlayer.setCurrentRole();
+                hunterPlayer.setVillage(true);
+                rolesInGame.add(hunterPlayer);
+                break;
+            case "WITCH":
+                Roles witch = new Roles();
+                witch.setName(RoleName.WITCH);
+                Players witchPlayer = new Players();
+                witchPlayer.setCurrentRole(witch);
+                witchPlayer.setVillage(true);
+                rolesInGame.add(witchPlayer);
+                break;
+            case "LONE_WOLF":
+                Roles loneWolf = new Roles();
+                loneWolf.setName(RoleName.LONE_WOLF);
+                Players loneWolfPlayer = new Players();
+                loneWolfPlayer.setCurrentRole(loneWolf);
+                loneWolfPlayer.setVillage(true);
+                rolesInGame.add(loneWolfPlayer);
+                break;
+            case "MASON":
+                Roles mason = new Roles();
+                mason.setName(RoleName.MASON);
+                Players masonPlayer = new Players();
+                masonPlayer.setCurrentRole(mason);
+                masonPlayer.setVillage(true);
+                rolesInGame.add(masonPlayer);
         }
     }
 
