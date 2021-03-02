@@ -4,11 +4,11 @@ public class Players {
 
     private int seatNumber;
     private Roles currentRole;
-    private boolean isDead;
+    private boolean isDead = false;
     private boolean openGrave;
     private boolean isVillage;
-    private boolean hasWon;
-    private boolean isLovers;
+    private boolean hasWon = false;
+    private boolean isLovers = false;
 
     public int getSeatNumber() {
         return seatNumber;
