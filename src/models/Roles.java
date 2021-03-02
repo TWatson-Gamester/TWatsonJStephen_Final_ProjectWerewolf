@@ -38,4 +38,9 @@ public class Roles {
     public void setHasNightEvent(boolean hasNightEvent) {
         this.hasNightEvent = hasNightEvent;
     }
+
+    @Override
+    public String toString(){
+        return "" + getName();
+    }
 }

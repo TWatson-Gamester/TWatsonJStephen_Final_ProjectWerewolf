@@ -14,6 +14,10 @@ public class GameController {
     private static boolean isDay = false;
     private static int dayNumber = 0;
 
+    /**
+     * Starts the game of Werewolf
+     * @param players: the base state of the originalCast
+     */
     public static void runGame(ArrayList<Players> players){
 
         originalCast = players;
@@ -90,7 +94,7 @@ public class GameController {
     private static void nightTime(){
         //Seer
         for(Players seer : villagePeople){
-            if(seer.getCurrentRole().getName() == RoleName.SEER){
+            if(seer.getCurrentRole().getName() == RoleName.SEER && !seer.isDead()){
                 searchPlayer(RoleName.SEER);
             }
         }
@@ -117,6 +121,12 @@ public class GameController {
         }
         int searchedPerson;
         switch (searcher){
+            case APPRENTICE_SEER:
+                for(Players seer : villagePeople){
+                    if(seer.getCurrentRole().getName() == RoleName.SEER && !seer.isDead()){
+                        break;
+                    }
+                }
             case SEER:
                 ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);

@@ -1,6 +1,8 @@
 package controllers;
 
 import lib.ConsoleIO;
+import models.Players;
+import models.Roles;
 
 import java.io.*;
 
@@ -8,6 +10,9 @@ import java.util.ArrayList;
 
 public class WerewolfMainMenu {
 
+    /**
+     * To start up the process of the game
+     */
     public static void run() {
         boolean continueLoop = true;
         String[] menuOptions = {
@@ -35,6 +40,9 @@ public class WerewolfMainMenu {
         ConsoleIO.displayString("Thank you for playing our game.");
     }
 
+    /**
+     * Sets up the game for playing
+     */
     private static void playGame(){
         int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 6);
         boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no", "Y", "N");
@@ -48,15 +56,24 @@ public class WerewolfMainMenu {
         fileName += "Preset " + playerCount;
         //Get whatever game we are playing / read the file
 
+        ArrayList<Players> playersThatArePlaying = new ArrayList<>();
+        ArrayList<Roles> rolesInPlay = new ArrayList<>();
+
         //List the roles that will be in the game for that file
+        ConsoleIO.displayString("Roles that are in the game:");
+        for(Roles r : rolesInPlay){
+            ConsoleIO.displayString(r.toString());
+        }
 
         ConsoleIO.promptForString("Press ENTER to start the game: ",true);
         ConsoleIO.clearScreen();
 
-        //Add this later
-//        GameController.runGame();
+        GameController.runGame(playersThatArePlaying);
     }
 
+    /**
+     * Makes a custom game that can be used for games
+     */
     private static void makeCustom(){
         String nameOfFile = ConsoleIO.promptForString("What would you like to name this file: ", false);
         //Check to see if this is an allowed file name
@@ -86,10 +103,16 @@ public class WerewolfMainMenu {
         //Make the file here
     }
 
+    /**
+     * Shows the players what is in the games
+     */
     private static void viewGames(){
         //Not sure how we want to implement this yet
     }
 
+    /**
+     * Creates the preset games
+     */
     private static void createPresets(){
         String dirName = "GameDirectory";
         String fileName = "Preset";
@@ -184,11 +207,20 @@ public class WerewolfMainMenu {
         }
     }
 
+    /**
+     * Needs to be finished
+     * @param directory
+     */
     private static void createDirectory(String directory) {
         File file = new File(".", directory);
         file.mkdir();
     }
 
+    /**
+     * Needs to be finished
+     * @param filePath
+     * @param text
+     */
     private static void writeTextToFile(String filePath, String text){
 
         try(FileWriter myWriter = new FileWriter(filePath)){
@@ -198,6 +230,11 @@ public class WerewolfMainMenu {
         }
     }
 
+    /**
+     * Needs to be finished
+     * @param filePath
+     * @param text
+     */
     public static void addTextToFile(String filePath, String text){
 
         text = readTextFromFile(filePath) + "\n" + text;
@@ -210,6 +247,11 @@ public class WerewolfMainMenu {
 
     }
 
+    /**
+     * Needs to be finished
+     * @param filePath
+     * @return
+     */
     private static String readTextFromFile(String filePath){
 
         String returnString = null;
