@@ -84,12 +84,15 @@ public class WerewolfMainMenu {
         GameController.runGame(playersInGame);
     }
 
+    /**
+     * This will randomize the roles to random characters
+     */
     private static void randomizeCharacters(){
         Random rng = new Random();
         int totalRoles = rolesInGame.size() - 1;
         for(int i = 0; i < totalRoles; i++){
             int roleToAddAndRemove = rng.nextInt(rolesInGame.size());
-            addToPlayerArray(rolesInGame.get(roleToAddAndRemove));
+            addToPlayerArray(rolesInGame.get(roleToAddAndRemove), i+1);
             rolesInGame.remove(roleToAddAndRemove);
         }
     }
@@ -266,7 +269,7 @@ public class WerewolfMainMenu {
      * Adds Players to the players array list
      * @param roleToAdd the role of the player you with to add to the list (Roles)
      */
-    private static void addToPlayerArray(Roles roleToAdd){
+    private static void addToPlayerArray(Roles roleToAdd, int seatNumber){
         switch (roleToAdd.getName()) {
             case VILLAGER:
             case SEER:
@@ -380,8 +383,8 @@ public class WerewolfMainMenu {
     }
 
     /**
-     * Needs to be finished
-     * @param directory
+     * This will create a directory to store files
+     * @param directory the name of the directory
      */
     private static void createDirectory(String directory) {
         File file = new File(".", directory);
@@ -389,9 +392,9 @@ public class WerewolfMainMenu {
     }
 
     /**
-     * Needs to be finished
-     * @param filePath
-     * @param text
+     * This will write text to the file
+     * @param filePath The path for the file to be saved on
+     * @param text What will be saved to the file
      */
     private static void writeTextToFile(String filePath, String text){
 
@@ -403,9 +406,9 @@ public class WerewolfMainMenu {
     }
 
     /**
-     * Needs to be finished
-     * @param filePath
-     * @param text
+     * Adding text to a file without deleting what was already saved
+     * @param filePath The path for the file to be saved on
+     * @param text The text you with to add to the file
      */
     private static void addTextToFile(String filePath, String text){
 
@@ -420,9 +423,9 @@ public class WerewolfMainMenu {
     }
 
     /**
-     * Needs to be finished
-     * @param filePath
-     * @return
+     * Reading the text that was written to a file previously
+     * @param filePath The path for the file you with to read from
+     * @return The text that was saved to the file
      */
     private static String readTextFromFile(String filePath){
 
