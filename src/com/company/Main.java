@@ -26,17 +26,22 @@ public class Main {
         Players villagerPlayer = new Players();
         villagerPlayer.setCurrentRole(villager);
         villagerPlayer.setDead(false);
+        villagerPlayer.setSeatNumber(1);
         villagerPlayer.setVillage(true);
 
         Players werewolfPlayer = new Players();
+        werewolfPlayer.setSeatNumber(5);
         werewolfPlayer.setCurrentRole(werewolf);
         werewolfPlayer.setDead(false);
-        werewolfPlayer.setVillage(true);
+        werewolfPlayer.setVillage(false);
 
         Players seerPlayer = new Players();
+        seerPlayer.setSeatNumber(6);
         seerPlayer.setCurrentRole(seer);
         seerPlayer.setDead(false);
         seerPlayer.setVillage(true);
+
+        ArrayList<Players> originalCast = new ArrayList<>();
 
         originalCast.add(villagerPlayer);
         originalCast.add(villagerPlayer);
@@ -45,6 +50,6 @@ public class Main {
         originalCast.add(werewolfPlayer);
         originalCast.add(seerPlayer);
 
-        return null;
+        return originalCast;
     }
 }

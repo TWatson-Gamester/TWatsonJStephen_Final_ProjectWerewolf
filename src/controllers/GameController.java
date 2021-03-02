@@ -3,12 +3,11 @@ package controllers;
 import lib.ConsoleIO;
 import models.Players;
 import models.RoleName;
-import models.Roles;
 
 import java.util.ArrayList;
 
 public class GameController {
-    private static ArrayList<Players> originalCast = new ArrayList<>();
+    private static ArrayList<Players> originalCast;
     private static ArrayList<Players> villagePeople = new ArrayList<>();
     private static ArrayList<Players> graveyard = new ArrayList<>();
     private static boolean isDay = false;
@@ -20,15 +19,20 @@ public class GameController {
      */
     public static void runGame(ArrayList<Players> players){
 
+        ConsoleIO.clearScreen();
         originalCast = players;
-        villagePeople = players;
+        villagePeople.addAll(originalCast);
 
         do{
             if(isDay){
-                dayNumber++;
+                ConsoleIO.displayString("\nDay " + dayNumber);
+                //show Graveyard
+                ConsoleIO.displayString("\n" + outputGraveyard());
                 dayTime();
+                ConsoleIO.displayString("\n" + outputGraveyard());
                 isDay = false;
             }else{
+                dayNumber++;
                 nightTime();
                 isDay = true;
             }
@@ -45,15 +49,11 @@ public class GameController {
      * Returning to the game for nighttime,
      */
     private static void dayTime(){
-        ConsoleIO.displayString("\nDay " + dayNumber);
-
-        //show Graveyard
-        ConsoleIO.displayString("\n" + outputGraveyard());
 
         //discussion time
         //run until the moderator presses enter
         ConsoleIO.promptForString("It is now discussion time\n" +
-                "Press enter when discussion time is over.", true);
+                "Press enter when discussion time is over: ", true);
         ConsoleIO.displayString("");
 
         //put people on trial
@@ -63,7 +63,7 @@ public class GameController {
         //IF nobody is put on trial, say nobody was put on trial, then skip the trial
         //IF 1 or 2 people are on trial run the trial
 
-        int peopleOnTrial = ConsoleIO.promptForInt("How many people are voted to be on trial", Integer.MIN_VALUE, Integer.MAX_VALUE);
+        int peopleOnTrial = ConsoleIO.promptForInt("How many people are voted to be on trial: ", Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         if (peopleOnTrial > 0 && peopleOnTrial < 3){
             if (peopleOnTrial == 1) {
@@ -77,12 +77,6 @@ public class GameController {
         }else{
             ConsoleIO.displayString("There will be no trial tonight");
         }
-
-        //show Graveyard
-        ConsoleIO.displayString("\n" + outputGraveyard());
-
-        ConsoleIO.displayString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
-                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n");
     }
 
     /**
@@ -92,6 +86,10 @@ public class GameController {
      *      Werewolf / Werewolves kill a player
      */
     private static void nightTime(){
+        ConsoleIO.promptForString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
+                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
+                "Press Enter to continue: ", true);
+        ConsoleIO.clearScreen();
         //Seer
         for(Players seer : villagePeople){
             if(seer.getCurrentRole().getName() == RoleName.SEER && !seer.isDead()){
@@ -130,7 +128,7 @@ public class GameController {
             case SEER:
                 ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
-                if(villagePeople.get(searchedPerson).isVillage()){
+                if(villagePeople.get(searchedPerson-1).isVillage()){
                     ConsoleIO.displayString("Is on Village team");
                 } else{
                     ConsoleIO.displayString("Is on Werewolf team");
@@ -243,21 +241,23 @@ public class GameController {
         //If Werewolf Team has met victory conditions
         if(villagePeople.size() == 0 || werewolfTeam >= villageTeam){
             endGame = true;
-            littleTimmy.append("Werewolves Win!");
+            littleTimmy.append("Werewolves Win!").append('\n');
             for(Players player : originalCast){
                 if(!player.isVillage()){
-                    littleTimmy.append("Player ").append(player.getSeatNumber());
+                    littleTimmy.append("Player ").append(player.getSeatNumber()).append('\n');
                 }
             }
+            littleTimmy.append(outputGraveyard());
             //If Village Team has met victory conditions
         }else if(werewolfTeam == 0){
             endGame = true;
-            littleTimmy.append("Village Wins!");
+            littleTimmy.append("Village Wins!").append('\n');
             for(Players player : originalCast){
                 if(player.isVillage()){
-                    littleTimmy.append("Player ").append(player.getSeatNumber());
+                    littleTimmy.append("Player ").append(player.getSeatNumber()).append('\n');
                 }
             }
+            littleTimmy.append(outputGraveyard());
         }
         ConsoleIO.displayString(littleTimmy.toString());
         return endGame;

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class WerewolfMainMenu {
 
+    ArrayList<Players> playersInGame = new ArrayList<>();
+    ArrayList<Roles> rolesInGame = new ArrayList<>();
+
     /**
      * To start up the process of the game
      */
