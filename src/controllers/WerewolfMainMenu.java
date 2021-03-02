@@ -2,6 +2,7 @@ package controllers;
 
 import lib.ConsoleIO;
 import models.Players;
+import models.RoleName;
 import models.Roles;
 
 import java.io.*;
@@ -10,8 +11,9 @@ import java.util.ArrayList;
 
 public class WerewolfMainMenu {
 
-    ArrayList<Players> playersInGame = new ArrayList<>();
-    ArrayList<Roles> rolesInGame = new ArrayList<>();
+    private static ArrayList<Roles> rolesInGame = new ArrayList<>();
+    private static ArrayList<Players> playersInGame = new ArrayList<>();
+    private static final String dirName = "GameDirectory";
 
     /**
      * To start up the process of the game
@@ -244,7 +246,7 @@ public class WerewolfMainMenu {
                 Players villagerPlayer = new Players();
                 villagerPlayer.setCurrentRole(villager);
                 villagerPlayer.setVillage(true);
-                rolesInGame.add(villagerPlayer);
+                playersInGame.add(villagerPlayer);
                 break;
             case "SEER":
                 Roles seer = new Roles();
@@ -252,7 +254,7 @@ public class WerewolfMainMenu {
                 Players seerPlayer = new Players();
                 seerPlayer.setCurrentRole(seer);
                 seerPlayer.setVillage(true);
-                rolesInGame.add(seerPlayer);
+                playersInGame.add(seerPlayer);
                 break;
             case "WEREWOLF":
                 Roles werewolf = new Roles();
@@ -260,7 +262,7 @@ public class WerewolfMainMenu {
                 Players werewolfPlayer = new Players();
                 werewolfPlayer.setCurrentRole(werewolf);
                 werewolfPlayer.setVillage(false);
-                rolesInGame.add(werewolfPlayer);
+                playersInGame.add(werewolfPlayer);
                 break;
             case "CULT_LEADER":
                 Roles cultLeader = new Roles();
@@ -268,7 +270,7 @@ public class WerewolfMainMenu {
                 Players cultLeaderPlayer = new Players();
                 cultLeaderPlayer.setCurrentRole(cultLeader);
                 cultLeaderPlayer.setVillage(true);
-                rolesInGame.add(cultLeaderPlayer);
+                playersInGame.add(cultLeaderPlayer);
                 break;
             case "LYCAN":
                 Roles lycan = new Roles();
@@ -276,7 +278,7 @@ public class WerewolfMainMenu {
                 Players lycanPlayer = new Players();
                 lycanPlayer.setCurrentRole(lycan);
                 lycanPlayer.setVillage(true);
-                rolesInGame.add(lycanPlayer);
+                playersInGame.add(lycanPlayer);
                 break;
             case "CURSED":
                 Roles cursed = new Roles();
@@ -284,7 +286,7 @@ public class WerewolfMainMenu {
                 Players cursedPlayer = new Players();
                 cursedPlayer.setCurrentRole(cursed);
                 cursedPlayer.setVillage(true);
-                rolesInGame.add(cursedPlayer);
+                playersInGame.add(cursedPlayer);
                 break;
             case "TANNER":
                 Roles tanner = new Roles();
@@ -292,7 +294,7 @@ public class WerewolfMainMenu {
                 Players tannerPlayer = new Players();
                 tannerPlayer.setCurrentRole(tanner);
                 tannerPlayer.setVillage(true);
-                rolesInGame.add(tannerPlayer);
+                playersInGame.add(tannerPlayer);
                 break;
             case "WOLF_CUB":
                 Roles wolfCub = new Roles();
@@ -300,7 +302,7 @@ public class WerewolfMainMenu {
                 Players wolfCubPlayer = new Players();
                 wolfCubPlayer.setCurrentRole(wolfCub);
                 wolfCubPlayer.setVillage(false);
-                rolesInGame.add(wolfCubPlayer);
+                playersInGame.add(wolfCubPlayer);
                 break;
             case "CUPID":
                 Roles cupid = new Roles();
@@ -308,7 +310,7 @@ public class WerewolfMainMenu {
                 Players cupidPlayer = new Players();
                 cupidPlayer.setCurrentRole(cupid);
                 cupidPlayer.setVillage(true);
-                rolesInGame.add(cupidPlayer);
+                playersInGame.add(cupidPlayer);
                 break;
             case "APPRENTICE_SEER":
                 Roles apprenticeSeer = new Roles();
@@ -316,7 +318,7 @@ public class WerewolfMainMenu {
                 Players apprenticeSeerPlayer = new Players();
                 apprenticeSeerPlayer.setCurrentRole(apprenticeSeer);
                 apprenticeSeerPlayer.setVillage(true);
-                rolesInGame.add(apprenticeSeerPlayer);
+                playersInGame.add(apprenticeSeerPlayer);
                 break;
             case "BODYGUARD":
                 Roles bodyguard = new Roles();
@@ -324,15 +326,15 @@ public class WerewolfMainMenu {
                 Players bodyguardPlayer = new Players();
                 bodyguardPlayer.setCurrentRole(bodyguard);
                 bodyguardPlayer.setVillage(true);
-                rolesInGame.add(bodyguardPlayer);
+                playersInGame.add(bodyguardPlayer);
                 break;
             case "HUNTER":
                 Roles hunter = new Roles();
                 hunter.setName(RoleName.HUNTER);
                 Players hunterPlayer = new Players();
-                hunterPlayer.setCurrentRole();
+                hunterPlayer.setCurrentRole(hunter);
                 hunterPlayer.setVillage(true);
-                rolesInGame.add(hunterPlayer);
+                playersInGame.add(hunterPlayer);
                 break;
             case "WITCH":
                 Roles witch = new Roles();
@@ -340,7 +342,7 @@ public class WerewolfMainMenu {
                 Players witchPlayer = new Players();
                 witchPlayer.setCurrentRole(witch);
                 witchPlayer.setVillage(true);
-                rolesInGame.add(witchPlayer);
+                playersInGame.add(witchPlayer);
                 break;
             case "LONE_WOLF":
                 Roles loneWolf = new Roles();
@@ -348,7 +350,7 @@ public class WerewolfMainMenu {
                 Players loneWolfPlayer = new Players();
                 loneWolfPlayer.setCurrentRole(loneWolf);
                 loneWolfPlayer.setVillage(true);
-                rolesInGame.add(loneWolfPlayer);
+                playersInGame.add(loneWolfPlayer);
                 break;
             case "MASON":
                 Roles mason = new Roles();
@@ -356,7 +358,7 @@ public class WerewolfMainMenu {
                 Players masonPlayer = new Players();
                 masonPlayer.setCurrentRole(mason);
                 masonPlayer.setVillage(true);
-                rolesInGame.add(masonPlayer);
+                playersInGame.add(masonPlayer);
         }
     }
 
