@@ -54,7 +54,7 @@ public class WerewolfMainMenu {
      */
     private static void playGame(){
         int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 6);
-        boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no", "Y", "N");
+        boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no: ", "Y", "N");
         if(isCustomGame){
             String customGameName = ConsoleIO.promptForString("What is the file name: ", true);
             if(new File(dirName + "/" + customGameName).exists()){
@@ -77,6 +77,7 @@ public class WerewolfMainMenu {
         }
 
         //randomize
+        randomizeCharacters();
 
         ConsoleIO.promptForString("Press ENTER to start the game: ",true);
         ConsoleIO.clearScreen();
@@ -252,8 +253,7 @@ public class WerewolfMainMenu {
         try{
             BufferedReader buffy = new BufferedReader(new FileReader(dirName + "/" + fileName));
             buffy.readLine();
-            String players = buffy.readLine();
-            int numOfCharacters = Integer.valueOf(players);
+            int numOfCharacters = Integer.parseInt(buffy.readLine());
 
             for(int i = 0; i < numOfCharacters; i++){
 
