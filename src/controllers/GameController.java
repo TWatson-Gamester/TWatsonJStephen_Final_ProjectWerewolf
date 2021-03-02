@@ -90,17 +90,20 @@ public class GameController {
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
                 "Press Enter to continue: ", true);
         ConsoleIO.clearScreen();
-        //Seer
-        for(Players seer : villagePeople){
-            if(seer.getCurrentRole().getName() == RoleName.SEER && !seer.isDead()){
-                searchPlayer(RoleName.SEER);
-            }
-        }
-        //Werewolf
         String[] menuOptions = new String[villagePeople.size()];
         for(int i = 0; i < villagePeople.size(); i++){
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
         }
+
+        //Seer
+        if(searchForAliveRole(RoleName.SEER)){
+            searchPlayer(RoleName.SEER, menuOptions);
+        }else if(searchForDeadRoleGrave(RoleName.SEER)){
+            ConsoleIO.promptForString("GM, wake up the 'Seer' and have them 'search a player', then press ENTER: ", true);
+        }
+        ConsoleIO.clearScreen();
+
+        //Werewolf
         ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
         int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
         ConsoleIO.clearScreen();
@@ -112,11 +115,7 @@ public class GameController {
      * should only be used by the players that actually have a role that lets them investigates.
      * @param searcher: the player / role that is investigating something about a player
      */
-    private static void searchPlayer(RoleName searcher){
-        String[] menuOptions = new String[villagePeople.size()];
-        for(int i = 0; i < villagePeople.size(); i++){
-            menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
-        }
+    private static void searchPlayer(RoleName searcher, String[] menuOptions){
         int searchedPerson;
         switch (searcher){
             case APPRENTICE_SEER:
@@ -138,7 +137,26 @@ public class GameController {
                 ConsoleIO.displayString("How did you even get here???");
         }
         ConsoleIO.promptForString("Press Enter to Continue", true);
-        ConsoleIO.clearScreen();
+    }
+
+    private static boolean searchForAliveRole(RoleName roleWanted){
+        boolean returnBool = false;
+        for(Players wanted : villagePeople){
+            if(wanted.getCurrentRole().getName() == roleWanted){
+                returnBool = true;
+            }
+        }
+        return returnBool;
+    }
+
+    private static boolean searchForDeadRoleGrave(RoleName roleWanted){
+        boolean returnBool = false;
+        for(Players wanted : graveyard){
+            if(wanted.getCurrentRole().getName() == roleWanted && !wanted.getOpenGrave()){
+                returnBool = true;
+            }
+        }
+        return returnBool;
     }
 
     /**
