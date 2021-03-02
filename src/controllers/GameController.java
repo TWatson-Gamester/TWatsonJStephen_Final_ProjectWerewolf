@@ -178,14 +178,6 @@ public class GameController {
         player.setOpenGrave(openGrave);
     }
 
-    private static void discussionTime(){
-
-    }
-
-    private static void trialTime(){
-
-    }
-
     /**
      * This method takes in who is put on trial and figures out of they will be killed or not
      * @param player this is the player who has been put on trial
