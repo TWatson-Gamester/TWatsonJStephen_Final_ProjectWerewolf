@@ -91,7 +91,7 @@ public class WerewolfMainMenu {
     private static void randomizeCharacters(){
         Random rng = new Random();
         int totalRoles = rolesInGame.size() - 1;
-        for(int i = 0; i < totalRoles; i++){
+        for(int i = 0; i <= totalRoles; i++){
             int roleToAddAndRemove = rng.nextInt(rolesInGame.size());
             addToPlayerArray(rolesInGame.get(roleToAddAndRemove), i+1);
             rolesInGame.remove(roleToAddAndRemove);
