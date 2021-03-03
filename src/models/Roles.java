@@ -4,7 +4,6 @@ public class Roles {
 
     private RoleName name;
     private int balanceNumber;
-    private boolean hasNightEvent;
 
     public RoleName getName() {
         return name;
@@ -12,10 +11,6 @@ public class Roles {
 
     public int getBalanceNumber() {
         return balanceNumber;
-    }
-
-    public boolean hasNightEvent() {
-        return hasNightEvent;
     }
 
 
@@ -33,10 +28,6 @@ public class Roles {
         }else{
             throw new IllegalArgumentException("That is not a valid balance number.");
         }
-    }
-
-    public void setHasNightEvent(boolean hasNightEvent) {
-        this.hasNightEvent = hasNightEvent;
     }
 
     @Override
