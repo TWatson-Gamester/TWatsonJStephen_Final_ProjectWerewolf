@@ -279,6 +279,10 @@ public class GameController {
             ConsoleIO.displayString("Like Romeo and Juliet the lovers have died a very sad, and very tragic death.");
         }
 
+        if(player.getCurrentRole().getName() == RoleName.TANNER){
+            player.setWon(true);
+        }
+
     }
 
     /**
@@ -349,6 +353,9 @@ public class GameController {
             littleTimmy.append("Werewolves Win!").append('\n');
             for(Players player : originalCast){
                 if(!player.isVillage()){
+                    player.setWon(true);
+                }
+                if(player.hasWon()){
                     littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append('\n');
                 }
             }
@@ -359,6 +366,9 @@ public class GameController {
             littleTimmy.append("Village Wins!").append('\n');
             for(Players player : originalCast){
                 if(player.isVillage()){
+                    player.setWon(true);
+                }
+                if(player.hasWon()){
                     littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append('\n');
                 }
             }
