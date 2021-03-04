@@ -148,9 +148,9 @@ public class GameController {
                 ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
                 if(villagePeople.get(searchedPerson-1).isVillage()){
-                    ConsoleIO.displayString("Is on Village team");
+                    ConsoleIO.displayString("Player " + (searchedPerson - 1) + " is on the Village team");
                 } else{
-                    ConsoleIO.displayString("Is on Werewolf team");
+                    ConsoleIO.displayString("Player " + (searchedPerson - 1) + " is on the Werewolf team");
                 }
                 break;
             default:
@@ -159,6 +159,11 @@ public class GameController {
         ConsoleIO.promptForString("Press Enter to Continue", true);
     }
 
+    /**
+     * Looks for to see if the Player is alive in the game
+     * @param roleWanted: The role that we are searching for
+     * @return: Is the player alive
+     */
     private static boolean searchForAliveRole(RoleName roleWanted){
         for(Players wanted : villagePeople){
             if(wanted.getCurrentRole().getName() == roleWanted){
@@ -168,6 +173,11 @@ public class GameController {
         return false;
     }
 
+    /**
+     * Looks for to see if the Player is dead and that it's a closed grave
+     * @param roleWanted: The role that we are searching for
+     * @return: Is the player dead and is openGrave
+     */
     private static boolean searchForDeadRoleGrave(RoleName roleWanted){
         for(Players wanted : graveyard){
             if(wanted.getCurrentRole().getName() == roleWanted && !wanted.getOpenGrave()){
