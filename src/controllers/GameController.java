@@ -227,8 +227,8 @@ public class GameController {
      * @param player this is the player who has been put on trial
      */
     private static void votingTime(int player){
-        int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + player + ": ", 0, villagePeople.size());
-        votesToKill -= ConsoleIO.promptForInt("Votes to save player " + player + ": ", 0, villagePeople.size());
+        int votesToKill = ConsoleIO.promptForInt("Votes to kill player " + player + ": ", 0, villagePeople.size() - 1);
+        votesToKill -= ConsoleIO.promptForInt("Votes to save player " + player + ": ", 0, villagePeople.size() - 1);
 
         if (votesToKill > 0){
             ConsoleIO.displayString("Player " + player + " has been sent to the graveyard.");
@@ -245,12 +245,12 @@ public class GameController {
      */
     private static void votingTime(int player1, int player2){
 
-        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player" + player1 + ": ", 0, villagePeople.size());
-        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save player" + player1 + ": ", 0, villagePeople.size());
+        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player" + player1 + ": ", 0, villagePeople.size()-2);
+        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save player" + player1 + ": ", 0, villagePeople.size()-2);
 
 
-        int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill player " + player2 + ": ", 0, villagePeople.size());
-        votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save player " + player2 + ": ", 0, villagePeople.size());
+        int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill player " + player2 + ": ", 0, villagePeople.size()-2);
+        votesToKillPlayer2 -= ConsoleIO.promptForInt("Votes to save player " + player2 + ": ", 0, villagePeople.size()-2);
 
         if (votesToKillPlayer1 > 0 || votesToKillPlayer2 > 0) {
 
