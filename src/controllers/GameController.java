@@ -123,6 +123,7 @@ public class GameController {
                 ConsoleIO.displayString("Seat number of the second person to fall in love");
                 villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false)-1).setLovers(true);
             }
+            ConsoleIO.clearScreen();
 
             //Apprentice Seer
             if(dayNumber == 1){
@@ -264,9 +265,11 @@ public class GameController {
             ConsoleIO.displayString("\nThe Hunter has been killed, please let that player eliminate another player");
             int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
             sendToGrave(villagePeople.get(playerToRemove - 1), openGrave);
+            ConsoleIO.clearScreen();
         }
 
         if(player.isLovers()){
+            player.setLovers(false);
             for (Players current : villagePeople){
                 if(current.isLovers()){
                     current.setLovers(false);
