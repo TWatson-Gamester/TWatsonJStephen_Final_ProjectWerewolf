@@ -103,9 +103,10 @@ public class WerewolfMainMenu {
      */
     private static void makeCustom(){
         boolean invalidName = true;
+        String nameOfFile;
 
         do {
-            String nameOfFile = ConsoleIO.promptForString("What would you like to name this file: ", false);
+            nameOfFile = ConsoleIO.promptForString("What would you like to name this file: ", false);
             //Check to see if this is an allowed file name
             if(new File(dirName + "/" + nameOfFile).exists()){
                 ConsoleIO.displayString("The file you are attempting to create already exists, please enter another name");
@@ -133,12 +134,16 @@ public class WerewolfMainMenu {
             "LONE_WOLF",
             "WITCH"
         };
+
+        writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
+
         ArrayList<String> addedRoles = new ArrayList<>();
         for(int i = 0; i < numberOfPlayers; i++){
             int menuSelection = ConsoleIO.promptForMenuSelection(availableRoles, false);
+            addTextToFile(dirName + "/" + nameOfFile,availableRoles[menuSelection-1]);
             addedRoles.add(availableRoles[menuSelection-1]);
         }
-        //Make the file here
+
     }
 
     /**
