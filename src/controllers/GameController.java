@@ -421,6 +421,22 @@ public class GameController {
 
             littleTimmy.append('\n').append(outputGraveyard());
         }
+
+        if(aliveCultMembers.size() == villagePeople.size()){
+            if(endGame){
+
+            }
+            endGame = true;
+            ConsoleIO.displayString("Cult wins!");
+            for(Players player : originalCast){
+                if(player.isCult()){
+                    player.setWon(true);
+                }
+                if(player.hasWon()){
+                    littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append("\n");
+                }
+            }
+        }
         ConsoleIO.displayString(littleTimmy.toString());
         return endGame;
     }
