@@ -3,16 +3,11 @@ package models;
 public class Roles {
 
     private RoleName name;
-    private int balanceNumber;
     private boolean ability1 = true;
     private boolean ability2 = true;
 
     public RoleName getName() {
         return name;
-    }
-
-    public int getBalanceNumber() {
-        return balanceNumber;
     }
 
     public boolean isAbility1() {
@@ -28,14 +23,6 @@ public class Roles {
             this.name = name;
         }else{
             throw new IllegalArgumentException("This role is not currently supported.");
-        }
-    }
-
-    public void setBalanceNumber(int balanceNumber) {
-        if(balanceNumber > -10 && balanceNumber < 10) {
-            this.balanceNumber = balanceNumber;
-        }else{
-            throw new IllegalArgumentException("That is not a valid balance number.");
         }
     }
 
