@@ -114,8 +114,8 @@ public class GameController {
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
         }
 
-        //Cupid
         if(dayNumber == 1){
+            //Cupid
             if(searchForAliveRole(RoleName.CUPID)){
                 ConsoleIO.displayString("Cupid, please choose 2 players to fall in love");
                 ConsoleIO.displayString("Seat number of the first person to fall in love");
@@ -123,12 +123,21 @@ public class GameController {
                 ConsoleIO.displayString("Seat number of the second person to fall in love");
                 villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false)-1).setLovers(true);
             }
+
+            //Apprentice Seer
+            if(dayNumber == 1){
+                ConsoleIO.promptForString("GM, have the Seer stick out their thumb, and wake up the Apprentice Seer, then press ENTER: ", true);
+                ConsoleIO.clearScreen();
+            }
         }
 
         //Seer
         if(searchForAliveRole(RoleName.SEER)){
             searchPlayer(RoleName.SEER, menuOptions);
-        }else if(searchForDeadRoleGrave(RoleName.SEER)){
+        }else if(searchForAliveRole(RoleName.APPRENTICE_SEER)){
+            searchPlayer(RoleName.APPRENTICE_SEER, menuOptions);
+        }
+        else if(searchForDeadRoleGrave(RoleName.SEER)){
             ConsoleIO.promptForString("GM, wake up the 'Seer' and have them 'search a player', then press ENTER: ", true);
         }
         ConsoleIO.clearScreen();
@@ -168,11 +177,7 @@ public class GameController {
         int searchedPerson;
         switch (searcher){
             case APPRENTICE_SEER:
-                for(Players seer : villagePeople){
-                    if(seer.getCurrentRole().getName() == RoleName.SEER && !seer.isDead()){
-                        break;
-                    }
-                }
+                ConsoleIO.displayString("GM, please wake up the Apprentice Seer for this night, they are now considered the Seer");
             case SEER:
                 ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
