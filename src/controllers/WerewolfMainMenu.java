@@ -24,7 +24,6 @@ public class WerewolfMainMenu {
         String[] menuOptions = {
                 "Play Game",
                 "Make a Custom Game",
-                "View Games"
         };
 
         createPresets();
@@ -40,9 +39,6 @@ public class WerewolfMainMenu {
                     break;
                 case 2:
                     makeCustom();
-                    break;
-                case 3:
-                    viewGames();
                     break;
             }
         } while(continueLoop);
@@ -144,13 +140,6 @@ public class WerewolfMainMenu {
             addedRoles.add(availableRoles[menuSelection-1]);
         }
 
-    }
-
-    /**
-     * Shows the players what is in the games
-     */
-    private static void viewGames(){
-        //Not sure how we want to implement this yet
     }
 
     /**
