@@ -424,10 +424,11 @@ public class GameController {
 
         if(aliveCultMembers.size() == villagePeople.size()){
             if(endGame){
-
+                ConsoleIO.displayString("\nThe Cult also wins!");
+            }else{
+                ConsoleIO.displayString("Cult wins!");
             }
             endGame = true;
-            ConsoleIO.displayString("Cult wins!");
             for(Players player : originalCast){
                 if(player.isCult()){
                     player.setWon(true);
