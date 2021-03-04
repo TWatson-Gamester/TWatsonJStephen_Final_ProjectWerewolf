@@ -114,6 +114,17 @@ public class GameController {
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
         }
 
+        //Cupid
+        if(dayNumber == 1){
+            if(searchForAliveRole(RoleName.CUPID)){
+                ConsoleIO.displayString("Cupid, please choose 2 players to fall in love");
+                ConsoleIO.displayString("Seat number of the first person to fall in love");
+                villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false)-1).setLovers(true);
+                ConsoleIO.displayString("Seat number of the second person to fall in love");
+                villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false)-1).setLovers(true);
+            }
+        }
+
         //Seer
         if(searchForAliveRole(RoleName.SEER)){
             searchPlayer(RoleName.SEER, menuOptions);
@@ -249,6 +260,17 @@ public class GameController {
             int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
             sendToGrave(villagePeople.get(playerToRemove - 1), openGrave);
         }
+
+        if(player.isLovers()){
+            for (Players current : villagePeople){
+                if(current.isLovers()){
+                    current.setLovers(false);
+                    sendToGrave(current, openGrave);
+                }
+            }
+            ConsoleIO.displayString("Like Romeo and Juliet the lovers have died a very sad, and very tragic death.");
+        }
+
     }
 
     /**
