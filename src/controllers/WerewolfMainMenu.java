@@ -275,10 +275,13 @@ public class WerewolfMainMenu {
      * @param roleToAdd the role of the player you with to add to the list (Roles)
      */
     private static void addToPlayerArray(Roles roleToAdd, int seatNumber){
+        Players player = new Players();
+
         switch (roleToAdd.getName()) {
+            case CULT_LEADER:
+                player.setCult(true);
             case VILLAGER:
             case SEER:
-            case CULT_LEADER:
             case LYCAN:
             case CURSED:
             case TANNER:
@@ -288,22 +291,19 @@ public class WerewolfMainMenu {
             case HUNTER:
             case WITCH:
             case MASON:
-                Players villagePlayer = new Players();
-                villagePlayer.setCurrentRole(roleToAdd);
-                villagePlayer.setVillage(true);
-                villagePlayer.setSeatNumber(seatNumber);
-                playersInGame.add(villagePlayer);
+                player.setCurrentRole(roleToAdd);
+                player.setVillage(true);
+                player.setSeatNumber(seatNumber);
                 break;
             case LONE_WOLF:
             case WOLF_CUB:
             case WEREWOLF:
-                Players werewolfPlayer = new Players();
-                werewolfPlayer.setCurrentRole(roleToAdd);
-                werewolfPlayer.setVillage(false);
-                werewolfPlayer.setSeatNumber(seatNumber);
-                playersInGame.add(werewolfPlayer);
+                player.setCurrentRole(roleToAdd);
+                player.setVillage(false);
+                player.setSeatNumber(seatNumber);
                 break;
         }
+        playersInGame.add(player);
     }
 
     /**

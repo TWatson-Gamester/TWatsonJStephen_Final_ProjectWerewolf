@@ -7,8 +7,13 @@ public class Players {
     private boolean isDead = false;
     private boolean openGrave;
     private boolean isVillage;
+    private boolean isCult = false;
     private boolean hasWon = false;
     private boolean isLovers = false;
+
+    public boolean isCult() {
+        return isCult;
+    }
 
     public int getSeatNumber() {
         return seatNumber;
@@ -39,6 +44,10 @@ public class Players {
     }
 
     //
+
+    public void setCult(boolean cult) {
+        isCult = cult;
+    }
 
     public void setSeatNumber(int seatNumber) {
         if(seatNumber > 0 && seatNumber < 21){

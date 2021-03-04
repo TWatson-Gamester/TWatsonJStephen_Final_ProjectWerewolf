@@ -10,7 +10,9 @@ public class GameController {
     private static ArrayList<Players> originalCast;
     private static ArrayList<Players> villagePeople = new ArrayList<>();
     private static ArrayList<Players> graveyard = new ArrayList<>();
+    private static ArrayList<Players> aliveCultMembers = new ArrayList<>();
     private static boolean isDay = false;
+    private static int numberOfCultLeaders = 1;
     private static int dayNumber = 0;
 
     /**
@@ -50,7 +52,9 @@ public class GameController {
         originalCast.clear();
         villagePeople.clear();
         graveyard.clear();
+        aliveCultMembers.clear();
         dayNumber = 0;
+        numberOfCultLeaders = 0;
         isDay = false;
     }
 
@@ -126,11 +130,49 @@ public class GameController {
             ConsoleIO.clearScreen();
 
             //Apprentice Seer
-            if(dayNumber == 1){
+            if(searchForAliveRole(RoleName.APPRENTICE_SEER)){
                 ConsoleIO.promptForString("GM, have the Seer stick out their thumb, and wake up the Apprentice Seer, then press ENTER: ", true);
                 ConsoleIO.clearScreen();
             }
+
+            //Masons
+            if(searchForAliveRole(RoleName.MASON)){
+                ConsoleIO.promptForString("GM, please wake up the Masons so they can see eachother, then press ENTER: ", false);
+            }
         }
+
+        //Cult Leader
+        if(aliveCultMembers.size() > 0){
+            if(numberOfCultLeaders < 3){
+                ConsoleIO.displayString("GM, silently wake up " + aliveCultMembers.get(0).getSeatNumber() + " as they are the cult leader");
+                ConsoleIO.displayString("Cult Leader please choose someone to indoctrinate into the church of the llama.");
+                int playerToIndoctrinate = ConsoleIO.promptForMenuSelection(menuOptions, false);
+                if(!villagePeople.get(playerToIndoctrinate - 1).isCult()){
+                    aliveCultMembers.add(villagePeople.get(playerToIndoctrinate - 1));
+                    villagePeople.get(playerToIndoctrinate - 1).setCult(true);
+                }
+            }else{
+                ConsoleIO.displayString("GM, wake up the 'Cult Leader' so they can choose someone to indoctrinate into the church of the llama.");
+            }
+        }
+
+
+        //Cursed
+        if(searchForAliveRole(RoleName.CURSED)){
+            ConsoleIO.displayString("GM, please wake up the cursed so they can see there role, then press ENTER: ");
+            for(Players cursed : villagePeople){
+                if(cursed.getCurrentRole().getName() == RoleName.CURSED){
+                    if(cursed.isVillage()) {
+                        ConsoleIO.promptForString("You are on the villagers side.", true);
+                    }else{
+                        ConsoleIO.promptForString("You are on the werewolves side.", true);
+                    }
+                }
+            }
+        }else if(searchForDeadRoleGrave(RoleName.CURSED)){
+            ConsoleIO.promptForString("GM, please wake up the 'Cursed' so they can see there role, then press ENTER: ", true);
+        }
+        ConsoleIO.clearScreen();
 
         //Seer
         if(searchForAliveRole(RoleName.SEER)){
@@ -150,7 +192,11 @@ public class GameController {
         } else {
             ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
             int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
-            playersToKill.add(villagePeople.get(playerToRemove - 1));
+            if(villagePeople.get(playerToRemove-1).getCurrentRole().getName() == RoleName.CURSED) {
+                villagePeople.get(playerToRemove-1).setVillage(false);
+            }else{
+                playersToKill.add(villagePeople.get(playerToRemove - 1));
+            }
         }
         ConsoleIO.clearScreen();
 
