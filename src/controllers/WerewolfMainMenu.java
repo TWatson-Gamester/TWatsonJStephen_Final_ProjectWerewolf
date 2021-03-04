@@ -53,7 +53,7 @@ public class WerewolfMainMenu {
      * Sets up the game for playing
      */
     private static void playGame(){
-        int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 6);
+        int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 20);
         boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no: ", "Y", "N");
         if(isCustomGame){
             String customGameName = ConsoleIO.promptForString("What is the file name: ", true);

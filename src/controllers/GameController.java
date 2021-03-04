@@ -46,9 +46,12 @@ public class GameController {
                 isDay = true;
             }
         }while(!checkForWinCondition());
+        //Reset in case for another game
         originalCast.clear();
         villagePeople.clear();
         graveyard.clear();
+        dayNumber = 0;
+        isDay = false;
     }
 
     /**
@@ -105,6 +108,7 @@ public class GameController {
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
                 "Press Enter to continue: ", true);
         ConsoleIO.clearScreen();
+        ArrayList<Players> playersToKill = new ArrayList<>();
         String[] menuOptions = new String[villagePeople.size()];
         for(int i = 0; i < villagePeople.size(); i++){
             menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
@@ -121,13 +125,27 @@ public class GameController {
         //Werewolf
         if(dayNumber == 1){
             ConsoleIO.promptForString("GM, wake up the 'Werewolf / Werewolves' and have them look for each other," +
-                    "They don't kill this night ,then press ENTER", true);
+                    "They don't kill this night ,then press ENTER: ", true);
         } else {
             ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
             int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
-            sendToGrave(villagePeople.get(playerToRemove - 1), false);
+            playersToKill.add(villagePeople.get(playerToRemove - 1));
         }
         ConsoleIO.clearScreen();
+
+        //Bodyguard
+        if(searchForAliveRole(RoleName.BODYGUARD)){
+            ConsoleIO.displayString("Bodyguard please choose a player to protect, you can not pick the same player twice in a row");
+            int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+            playersToKill.remove(villagePeople.get(playerToRemove - 1));
+        } else if(searchForDeadRoleGrave(RoleName.BODYGUARD)){
+            ConsoleIO.promptForString("GM, wake up the 'Bodyguard' and have them 'search a player', then press ENTER: ", true);
+        }
+
+        //Sends all players that have been killed to the graveyard
+        for(Players deadMan : playersToKill){
+            sendToGrave(deadMan, false);
+        }
     }
 
     /**
@@ -148,9 +166,9 @@ public class GameController {
                 ConsoleIO.displayString("Seer please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
                 if(villagePeople.get(searchedPerson-1).isVillage()){
-                    ConsoleIO.displayString("Player " + (searchedPerson - 1) + " is on the Village team");
+                    ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is on the Village team");
                 } else{
-                    ConsoleIO.displayString("Player " + (searchedPerson - 1) + " is on the Werewolf team");
+                    ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is on the Werewolf team");
                 }
                 break;
             default:
@@ -220,6 +238,17 @@ public class GameController {
         graveyard.add(player);
         player.setDead(true);
         player.setOpenGrave(openGrave);
+        //If player killed was the Hunter
+        if(player.getCurrentRole().getName() == RoleName.HUNTER){
+            player.setOpenGrave(true);
+            String[] menuOptions = new String[villagePeople.size()];
+            for(int i = 0; i < villagePeople.size(); i++){
+                menuOptions[i] = "Player " + villagePeople.get(i).getSeatNumber();
+            }
+            ConsoleIO.displayString("\nThe Hunter has been killed, please let that player eliminate another player");
+            int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+            sendToGrave(villagePeople.get(playerToRemove - 1), openGrave);
+        }
     }
 
     /**
@@ -290,7 +319,7 @@ public class GameController {
             littleTimmy.append("Werewolves Win!").append('\n');
             for(Players player : originalCast){
                 if(!player.isVillage()){
-                    littleTimmy.append("Player ").append(player.getSeatNumber()).append('\n');
+                    littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append('\n');
                 }
             }
             littleTimmy.append(outputGraveyard());
@@ -300,7 +329,7 @@ public class GameController {
             littleTimmy.append("Village Wins!").append('\n');
             for(Players player : originalCast){
                 if(player.isVillage()){
-                    littleTimmy.append("Player ").append(player.getSeatNumber()).append('\n');
+                    littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append('\n');
                 }
             }
 
