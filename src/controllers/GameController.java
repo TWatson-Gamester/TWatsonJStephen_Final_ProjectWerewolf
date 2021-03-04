@@ -19,9 +19,18 @@ public class GameController {
      */
     public static void runGame(ArrayList<Players> players){
 
-        ConsoleIO.clearScreen();
+        ConsoleIO.promptForString("We are now going to be passing out the cards, however GM we need you to see the " +
+                        "next piece of info and not the players, so hide this next part, Press ENTER to continue: ", true);
         originalCast = players;
         villagePeople.addAll(originalCast);
+
+        for(Players player : originalCast){
+            ConsoleIO.promptForString("Player " + player.getSeatNumber() + ", Role: " + player.getCurrentRole() + " , Press ENTER: ", true);
+        }
+        ConsoleIO.clearScreen();
+        ConsoleIO.promptForString("Okay we are now ready to start, GM if there is anything you would like to do for Day 0, do it now," +
+                " Then press ENTER to start: ", true);
+        ConsoleIO.clearScreen();
 
         do{
             if(isDay){
@@ -37,6 +46,9 @@ public class GameController {
                 isDay = true;
             }
         }while(!checkForWinCondition());
+        originalCast.clear();
+        villagePeople.clear();
+        graveyard.clear();
     }
 
     /**
@@ -74,7 +86,10 @@ public class GameController {
                 int secondOnTrial = ConsoleIO.promptForInt("Seat of the second person on trial on trial: ", 1, originalCast.size());
                 votingTime(firstOnTrial, secondOnTrial);
             }
-        }else{
+        }else if(peopleOnTrial >= 3){
+            ConsoleIO.displayString("The Village couldn't decide on who to put on trial");
+        }
+        else{
             ConsoleIO.displayString("There will be no trial tonight");
         }
     }
@@ -104,10 +119,15 @@ public class GameController {
         ConsoleIO.clearScreen();
 
         //Werewolf
-        ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
-        int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+        if(dayNumber == 1){
+            ConsoleIO.promptForString("GM, wake up the 'Werewolf / Werewolves' and have them look for each other," +
+                    "They don't kill this night ,then press ENTER", true);
+        } else {
+            ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
+            int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
+            sendToGrave(villagePeople.get(playerToRemove - 1), false);
+        }
         ConsoleIO.clearScreen();
-        sendToGrave(originalCast.get(playerToRemove-1),false);
     }
 
     /**
@@ -140,23 +160,21 @@ public class GameController {
     }
 
     private static boolean searchForAliveRole(RoleName roleWanted){
-        boolean returnBool = false;
         for(Players wanted : villagePeople){
             if(wanted.getCurrentRole().getName() == roleWanted){
-                returnBool = true;
+                return true;
             }
         }
-        return returnBool;
+        return false;
     }
 
     private static boolean searchForDeadRoleGrave(RoleName roleWanted){
-        boolean returnBool = false;
         for(Players wanted : graveyard){
             if(wanted.getCurrentRole().getName() == roleWanted && !wanted.getOpenGrave()){
-                returnBool = true;
+                return true;
             }
         }
-        return returnBool;
+        return false;
     }
 
     /**
@@ -275,7 +293,8 @@ public class GameController {
                     littleTimmy.append("Player ").append(player.getSeatNumber()).append('\n');
                 }
             }
-            littleTimmy.append(outputGraveyard());
+
+            littleTimmy.append('\n').append(outputGraveyard());
         }
         ConsoleIO.displayString(littleTimmy.toString());
         return endGame;
