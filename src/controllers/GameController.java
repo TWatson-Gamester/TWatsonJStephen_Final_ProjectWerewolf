@@ -190,7 +190,6 @@ public class GameController {
             ConsoleIO.promptForString("GM, wake up the 'Werewolf / Werewolves' and have them look for each other," +
                     "They don't kill this night ,then press ENTER: ", true);
         } else {
-            ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
             for(int i = 0; i < werewolfKills; i++){
                 ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
                 int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
@@ -222,19 +221,19 @@ public class GameController {
             int witchMenuOption = ConsoleIO.promptForMenuSelection(witchMenu, true);
             switch (witchMenuOption){
                 case 1:
-                    ConsoleIO.displayString("Witch please choose a player to protect");
+                    ConsoleIO.displayString("Witch please choose a player to cast the spell on");
                     int playerToSave = ConsoleIO.promptForMenuSelection(menuOptions, false);
                     playersToKill.remove(villagePeople.get(playerToSave - 1));
                     witch.getCurrentRole().setAbility1(false);
                     break;
                 case 2:
-                    ConsoleIO.displayString("Witch please choose a player to eliminate");
+                    ConsoleIO.displayString("Witch please choose a player to cast the spell on");
                     int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
                     playersToKill.add(villagePeople.get(playerToRemove - 1));
                     witch.getCurrentRole().setAbility2(false);
                     break;
                 case 0:
-                    ConsoleIO.promptForString("GM, still say which player would you like to cast your spell on3, then press ENTER: ", true);
+                    ConsoleIO.promptForString("GM, still say which player would you like to cast your spell on, then press ENTER: ", true);
                     break;
             }
         }else if(searchForDeadRoleGrave(RoleName.WITCH)){
@@ -494,7 +493,7 @@ public class GameController {
             endGame = true;
             littleTimmy.append("Village Wins!").append('\n');
             for(Players player : originalCast){
-                if(player.isVillage()){
+                if(player.isVillage() && player.getCurrentRole().getName() != RoleName.TANNER && player.getCurrentRole().getName() != RoleName.CULT_LEADER){
                     player.setWon(true);
                 }
                 if(player.hasWon()){
