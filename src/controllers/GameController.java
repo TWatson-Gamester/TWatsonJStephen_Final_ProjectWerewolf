@@ -193,8 +193,10 @@ public class GameController {
         if(dayNumber == 1){
             ConsoleIO.promptForString("GM, wake up the 'Werewolf / Werewolves' and have them look for each other," +
                     "They don't kill this night ,then press ENTER: ", true);
-            ConsoleIO.promptForString("Gm, have the Werewolf Team all stick out their thumbs, and have the Minion Player wake up and look around" +
-                    ", then press ENTER: ", true);
+            if(searchForAliveRole(RoleName.MINION)) {
+                ConsoleIO.promptForString("Gm, have the Werewolf Team all stick out their thumbs, and have the Minion Player wake up and look around" +
+                        ", then press ENTER: ", true);
+            }
         } else {
             for(int i = 0; i < werewolfKills; i++){
                 ConsoleIO.displayString("Werewolf / Werewolves please choose a player to eliminate");
