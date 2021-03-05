@@ -43,7 +43,20 @@ public class WerewolfMainMenu {
                     makeCustom();
                     break;
                 case 3:
-                    ConsoleIO.displayString("");
+                    ConsoleIO.displayString("\n");
+                    ConsoleIO.displayString("-No talking at Night");
+                    ConsoleIO.displayString("-No talking at trial, unless you are on trial");
+                    ConsoleIO.displayString("-Listen to the GM, and their instructions");
+                    ConsoleIO.displayString("-Wake up at night when the GM calls your role");
+                    ConsoleIO.displayString("-Try to win");
+                    ConsoleIO.displayString("-Village Players, kill all Werewolves");
+                    ConsoleIO.displayString("-Werewolf Players, work together to have the village side equal your team size");
+                    ConsoleIO.displayString("-Cult Leader, Have everyone follow the way of the Llama");
+                    ConsoleIO.displayString("-Lying is allowed, about what you can do, and what role you are");
+                    ConsoleIO.displayString("-Don't bend the cards");
+                    ConsoleIO.displayString("-Keep Cards in sleeves, and in front of you");
+                    ConsoleIO.displayString("-Be respectful, and have fun");
+                    ConsoleIO.displayString("\n");
                     break;
                 case 4:
                     break;
