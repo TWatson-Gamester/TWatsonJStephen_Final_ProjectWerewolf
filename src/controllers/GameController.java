@@ -12,7 +12,7 @@ public class GameController {
     private static ArrayList<Players> graveyard = new ArrayList<>();
     private static ArrayList<Players> aliveCultMembers = new ArrayList<>();
     private static boolean isDay = false;
-    private static int numberOfCultLeaders = 1;
+    private static int numberOfCultLeaders = 0;
     private static int dayNumber = 0;
     private static int werewolfKills = 1;
     private static final int defaultWerewolfKills = 1;
@@ -75,7 +75,7 @@ public class GameController {
         //discussion time
         //run until the moderator presses enter
         ConsoleIO.promptForString("It is now discussion time\n" +
-                "Press enter when discussion time is over: ", true);
+                "Press ENTER when discussion time is over: ", true);
         ConsoleIO.displayString("");
 
         //put people on trial
@@ -225,17 +225,19 @@ public class GameController {
                     ConsoleIO.displayString("Witch please choose a player to protect");
                     int playerToSave = ConsoleIO.promptForMenuSelection(menuOptions, false);
                     playersToKill.remove(villagePeople.get(playerToSave - 1));
+                    witch.getCurrentRole().setAbility1(false);
                     break;
                 case 2:
                     ConsoleIO.displayString("Witch please choose a player to eliminate");
                     int playerToRemove = ConsoleIO.promptForMenuSelection(menuOptions, false);
                     playersToKill.add(villagePeople.get(playerToRemove - 1));
+                    witch.getCurrentRole().setAbility2(false);
                     break;
                 case 0:
                     ConsoleIO.promptForString("GM, still say which player would you like to cast your spell on3, then press ENTER: ", true);
                     break;
             }
-        }else{
+        }else if(searchForDeadRoleGrave(RoleName.WITCH)){
             ConsoleIO.promptForString("GM, wake up the 'Witch' and have them 'not use an ability', then press ENTER: ", true);
         }
         ConsoleIO.clearScreen();
@@ -363,6 +365,7 @@ public class GameController {
             aliveCultMembers.remove(player);
             numberOfCultLeaders++;
         }
+
         //If player killed was the Hunter
         if(player.getCurrentRole().getName() == RoleName.HUNTER){
             player.setOpenGrave(true);
@@ -380,12 +383,15 @@ public class GameController {
             werewolfKills = 2;
         }
 
+
+        //This needs to kill the Lover after we get out of the loop
         if(player.isLovers()){
             player.setLovers(false);
             for (Players current : villagePeople){
                 if(current.isLovers()){
                     current.setLovers(false);
                     sendToGrave(current, openGrave);
+                    break;
                 }
             }
             ConsoleIO.displayString("Like Romeo and Juliet the lovers have died a very sad, and very tragic death.");
@@ -394,7 +400,6 @@ public class GameController {
         if(player.getCurrentRole().getName() == RoleName.TANNER){
             player.setWon(true);
         }
-
     }
 
     /**
@@ -500,6 +505,7 @@ public class GameController {
             littleTimmy.append('\n').append(outputGraveyard());
         }
 
+        //Check for Cult Victory
         if(aliveCultMembers.size() == villagePeople.size()){
             if(endGame){
                 ConsoleIO.displayString("\nThe Cult also wins!");

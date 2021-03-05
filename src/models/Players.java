@@ -43,7 +43,6 @@ public class Players {
         return isLovers;
     }
 
-    //
 
     public void setCult(boolean cult) {
         isCult = cult;
