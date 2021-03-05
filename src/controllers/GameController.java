@@ -151,7 +151,7 @@ public class GameController {
         //Cult Leader
         if(aliveCultMembers.size() > 0){
             if(numberOfCultLeaders < 3){
-                ConsoleIO.displayString("GM, silently wake up " + aliveCultMembers.get(0).getSeatNumber() + " as they are the cult leader");
+                ConsoleIO.displayString("GM, silently wake up player " + aliveCultMembers.get(0).getSeatNumber() + " as they are the cult leader");
                 ConsoleIO.displayString("Cult Leader please choose someone to indoctrinate into the church of the llama.");
                 int playerToIndoctrinate = ConsoleIO.promptForMenuSelection(menuOptions, false);
                 if(!villagePeople.get(playerToIndoctrinate - 1).isCult()){
@@ -166,7 +166,7 @@ public class GameController {
 
         //Cursed
         if(searchForAliveRole(RoleName.CURSED)){
-            ConsoleIO.displayString("GM, please wake up the cursed so they can see there role, then press ENTER: ");
+            ConsoleIO.promptForString("GM, please wake up the cursed so they can see there role, then press ENTER: ", true);
             Players cursed = findPlayerByRole(RoleName.CURSED, villagePeople);
                     if (cursed.isVillage()) {
                         ConsoleIO.promptForString("You are on the villagers side.", true);
