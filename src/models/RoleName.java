@@ -15,5 +15,6 @@ public enum RoleName {
     CULT_LEADER,
     MASON,
     LONE_WOLF,
-    WITCH
+    WITCH,
+    MINION
 }

@@ -46,6 +46,7 @@ public class WerewolfMainMenu {
                     ConsoleIO.displayString("\n");
                     ConsoleIO.displayString("-No talking at Night");
                     ConsoleIO.displayString("-No talking at trial, unless you are on trial");
+                    ConsoleIO.displayString("-No giving any information when you are dead");
                     ConsoleIO.displayString("-Listen to the GM, and their instructions");
                     ConsoleIO.displayString("-Wake up at night when the GM calls your role");
                     ConsoleIO.displayString("-Try to win");
@@ -142,21 +143,22 @@ public class WerewolfMainMenu {
 
         int numberOfPlayers = ConsoleIO.promptForInt("How many players are there: ", 6, 20);
         String[] availableRoles = {
-            "VILLAGER",
-            "WEREWOLF",
-            "SEER",
-            "HUNTER",
-            "BODYGUARD",
-            "APPRENTICE_SEER",
-            "CUPID",
-            "WOLF_CUB",
-            "TANNER",
-            "CURSED",
-            "LYCAN",
-            "CULT_LEADER",
-            "MASON",
-            "LONE_WOLF",
-            "WITCH"
+                "VILLAGER",
+                "WEREWOLF",
+                "SEER",
+                "HUNTER",
+                "BODYGUARD",
+                "APPRENTICE_SEER",
+                "CUPID",
+                "WOLF_CUB",
+                "TANNER",
+                "CURSED",
+                "LYCAN",
+                "CULT_LEADER",
+                "MASON",
+                "LONE_WOLF",
+                "WITCH",
+                "MINION"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
@@ -403,6 +405,10 @@ public class WerewolfMainMenu {
                 Roles mason = new Roles();
                 mason.setName(RoleName.MASON);
                 rolesInGame.add(mason);
+            case "MINION":
+                Roles minion = new Roles();
+                minion.setName(RoleName.MINION);
+                rolesInGame.add(minion);
         }
     }
 
