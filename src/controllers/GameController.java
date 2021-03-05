@@ -29,8 +29,9 @@ public class GameController {
         villagePeople.addAll(originalCast);
 
         for(Players player : originalCast){
-            ConsoleIO.promptForString("Player " + player.getSeatNumber() + ", Role: " + player.getCurrentRole() + " , Press ENTER: ", true);
+            ConsoleIO.displayString("Player " + player.getSeatNumber() + ", Role: " + player.getCurrentRole());
         }
+        ConsoleIO.promptForString("Press ENTER to Continue: ", true);
         ConsoleIO.clearScreen();
         ConsoleIO.promptForString("Okay we are now ready to start, GM if there is anything you would like to do for Day 0, do it now," +
                 " Then press ENTER to start: ", true);
@@ -143,7 +144,7 @@ public class GameController {
 
             //Masons
             if(searchForAliveRole(RoleName.MASON)){
-                ConsoleIO.promptForString("GM, please wake up the Masons so they can see eachother, then press ENTER: ", false);
+                ConsoleIO.promptForString("GM, please wake up the Masons so they can see each other, then press ENTER: ", true);
             }
         }
 
