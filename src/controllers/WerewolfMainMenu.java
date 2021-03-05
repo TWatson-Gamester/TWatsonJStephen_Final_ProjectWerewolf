@@ -46,6 +46,14 @@ public class WerewolfMainMenu {
                     ConsoleIO.displayString("");
                     break;
                 case 4:
+                    ConsoleIO.displayString("GM Tips\n\n" +
+                            "1) Try to make sure you are heard\n" +
+                            "2) Listen to the program.\n" +
+                            "3) Don't make the players concerned.\n" +
+                            "4) Don't lead the players to make decisions\n" +
+                            "5) Keep a timer ready, you will need it for specific moments\n" +
+                            "6) Keep the display window up for the players to view\n" +
+                            "7) You are not a player of the game, please don't act like one");
                     break;
             }
         } while(continueLoop);
