@@ -36,6 +36,10 @@ public class GameController {
                 " Then press ENTER to start: ", true);
         ConsoleIO.clearScreen();
 
+        if(searchForAliveRole(RoleName.CULT_LEADER)){
+            aliveCultMembers.add(findPlayerByRole(RoleName.CULT_LEADER, villagePeople));
+        }
+
         do{
             if(isDay){
                 ConsoleIO.displayString("\nDay " + dayNumber);
@@ -76,7 +80,6 @@ public class GameController {
         //run until the moderator presses enter
         ConsoleIO.promptForString("It is now discussion time\n" +
                 "Press ENTER when discussion time is over: ", true);
-        ConsoleIO.displayString("");
 
         //put people on trial
         //ask who they want to put on trial
@@ -85,7 +88,7 @@ public class GameController {
         //IF nobody is put on trial, say nobody was put on trial, then skip the trial
         //IF 1 or 2 people are on trial run the trial
 
-        int peopleOnTrial = ConsoleIO.promptForInt("How many people are voted to be on trial: ", Integer.MIN_VALUE, Integer.MAX_VALUE);
+        int peopleOnTrial = ConsoleIO.promptForInt("\nHow many people are voted to be on trial: ", Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         if (peopleOnTrial > 0 && peopleOnTrial < 3){
             if (peopleOnTrial == 1) {
@@ -487,7 +490,6 @@ public class GameController {
                     }
                 }
             }
-            littleTimmy.append(outputGraveyard());
             //If Village Team has met victory conditions
         }else if(werewolfTeam == 0){
             endGame = true;
@@ -500,27 +502,27 @@ public class GameController {
                     littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append('\n');
                 }
             }
-
-            littleTimmy.append('\n').append(outputGraveyard());
         }
 
         //Check for Cult Victory
         if(aliveCultMembers.size() == villagePeople.size()){
             if(endGame){
-                ConsoleIO.displayString("\nThe Cult also wins!");
+                littleTimmy.append("\nThe Cult also wins!\n");
             }else{
-                ConsoleIO.displayString("Cult wins!");
+                littleTimmy.append("Cult wins!\n");
             }
             endGame = true;
             for(Players player : originalCast){
                 if(player.isCult()){
                     player.setWon(true);
                 }
-                if(player.hasWon()){
+                if(player.hasWon() && player.isCult()){
                     littleTimmy.append("Player ").append(player.getSeatNumber()).append(" Role: ").append(player.getCurrentRole()).append("\n");
                 }
             }
         }
+
+        littleTimmy.append('\n').append(outputGraveyard());
         ConsoleIO.displayString(littleTimmy.toString());
         return endGame;
     }
