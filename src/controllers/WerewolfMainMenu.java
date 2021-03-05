@@ -24,6 +24,8 @@ public class WerewolfMainMenu {
         String[] menuOptions = {
                 "Play Game",
                 "Make a Custom Game",
+                "Player Rules",
+                "GM Rules"
         };
 
         createPresets();
@@ -39,6 +41,11 @@ public class WerewolfMainMenu {
                     break;
                 case 2:
                     makeCustom();
+                    break;
+                case 3:
+                    ConsoleIO.displayString("");
+                    break;
+                case 4:
                     break;
             }
         } while(continueLoop);
