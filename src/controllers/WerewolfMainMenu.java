@@ -158,7 +158,8 @@ public class WerewolfMainMenu {
                 "MASON",
                 "LONE_WOLF",
                 "WITCH",
-                "MINION"
+                "MINION",
+                "GHOST"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
