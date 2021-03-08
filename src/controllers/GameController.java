@@ -46,9 +46,7 @@ public class GameController {
             if(isDay){
                 ConsoleIO.displayString("\nDay " + dayNumber);
                 //show Graveyard
-                ConsoleIO.displayString("\n" + outputGraveyard());
                 dayTime();
-                ConsoleIO.displayString("\n" + outputGraveyard());
                 isDay = false;
             }else{
                 dayNumber++;
@@ -78,7 +76,7 @@ public class GameController {
      */
     private static void dayTime(){
 
-        if(searchForDeadRoleGrave(RoleName.GHOST)){
+        if(searchForDeadRoleGrave(RoleName.GHOST) && dayNumber > 1){
             if(!currentGhostChar.isBlank()) {
                 ConsoleIO.promptForString("Last night everyone awoke to a vision of the character '" + currentGhostChar + "' Press ENTER to continue: ", true);
             }else{
@@ -158,8 +156,8 @@ public class GameController {
             }
 
             if(searchForAliveRole(RoleName.GHOST)){
-                currentGhostChar = ConsoleIO.promptForString("GM, notify the ghost that they have died",true);
-                sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),true);
+                ConsoleIO.promptForString("GM, notify the ghost that they have died",true);
+                sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),false);
             }
         }
 
@@ -179,7 +177,10 @@ public class GameController {
         }
 
         if(searchForDeadRoleGrave(RoleName.GHOST)){
-            ConsoleIO.promptForString("What character would you like to output for the players", false);
+            if(dayNumber > 1) {
+                currentGhostChar = ConsoleIO.promptForString("What character would you like to output for the players: ", true);
+                ConsoleIO.clearScreen();
+            }
         }
 
         //Cursed
