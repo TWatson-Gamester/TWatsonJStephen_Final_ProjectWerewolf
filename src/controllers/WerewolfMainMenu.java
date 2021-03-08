@@ -310,6 +310,7 @@ public class WerewolfMainMenu {
             case HUNTER:
             case WITCH:
             case MASON:
+            case GHOST:
                 player.setCurrentRole(roleToAdd);
                 player.setVillage(true);
                 player.setSeatNumber(seatNumber);
@@ -317,6 +318,7 @@ public class WerewolfMainMenu {
             case LONE_WOLF:
             case WOLF_CUB:
             case WEREWOLF:
+            case MINION:
                 player.setCurrentRole(roleToAdd);
                 player.setVillage(false);
                 player.setSeatNumber(seatNumber);
@@ -409,6 +411,11 @@ public class WerewolfMainMenu {
                 Roles minion = new Roles();
                 minion.setName(RoleName.MINION);
                 rolesInGame.add(minion);
+                break;
+            case "GHOST":
+                Roles ghost = new Roles();
+                ghost.setName(RoleName.GHOST);
+                rolesInGame.add(ghost);
         }
     }
 

@@ -16,6 +16,7 @@ public class GameController {
     private static int dayNumber = 0;
     private static int werewolfKills = 1;
     private static final int defaultWerewolfKills = 1;
+    private static String currentGhostChar;
 
     /**
      * Starts the game of Werewolf
@@ -76,6 +77,14 @@ public class GameController {
      * Returning to the game for nighttime,
      */
     private static void dayTime(){
+
+        if(searchForDeadRoleGrave(RoleName.GHOST)){
+            if(!currentGhostChar.isBlank()) {
+                ConsoleIO.promptForString("Last night everyone awoke to a vision of the character '" + currentGhostChar + "' Press ENTER to continue: ", true);
+            }else{
+                ConsoleIO.promptForString("Last night the ghost was tired so he decided not to give you anything. Press ENTER to continue:", true);
+            }
+        }
 
         //discussion time
         //run until the moderator presses enter
@@ -145,6 +154,12 @@ public class GameController {
             //Masons
             if(searchForAliveRole(RoleName.MASON)){
                 ConsoleIO.promptForString("GM, please wake up the Masons so they can see each other, then press ENTER: ", true);
+                ConsoleIO.clearScreen();
+            }
+
+            if(searchForAliveRole(RoleName.GHOST)){
+                currentGhostChar = ConsoleIO.promptForString("GM, notify the ghost that they have died",true);
+                sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),true);
             }
         }
 
@@ -163,6 +178,9 @@ public class GameController {
             }
         }
 
+        if(searchForDeadRoleGrave(RoleName.GHOST)){
+            ConsoleIO.promptForString("What character would you like to output for the players", false);
+        }
 
         //Cursed
         if(searchForAliveRole(RoleName.CURSED)){
