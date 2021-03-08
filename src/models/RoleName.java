@@ -17,5 +17,7 @@ public enum RoleName {
     LONE_WOLF,
     WITCH,
     MINION,
-    GHOST
+    GHOST,
+    SPELLCASTER,
+    OLD_HAG
 }

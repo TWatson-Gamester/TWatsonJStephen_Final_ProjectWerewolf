@@ -159,7 +159,9 @@ public class WerewolfMainMenu {
                 "LONE_WOLF",
                 "WITCH",
                 "MINION",
-                "GHOST"
+                "GHOST",
+                "SPELLCASTER",
+                "OLD_HAG"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
@@ -312,6 +314,8 @@ public class WerewolfMainMenu {
             case WITCH:
             case MASON:
             case GHOST:
+            case SPELLCASTER:
+            case OLD_HAG:
                 player.setCurrentRole(roleToAdd);
                 player.setVillage(true);
                 player.setSeatNumber(seatNumber);
@@ -417,6 +421,16 @@ public class WerewolfMainMenu {
                 Roles ghost = new Roles();
                 ghost.setName(RoleName.GHOST);
                 rolesInGame.add(ghost);
+                break;
+            case "SPELLCASTER":
+                Roles spellcaster = new Roles();
+                spellcaster.setName(RoleName.SPELLCASTER);
+                rolesInGame.add(spellcaster);
+                break;
+            case "OLD_HAG":
+                Roles oldHag = new Roles();
+                oldHag.setName(RoleName.OLD_HAG);
+                rolesInGame.add(oldHag);
         }
     }
 

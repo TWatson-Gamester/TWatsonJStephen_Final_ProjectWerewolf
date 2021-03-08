@@ -4,6 +4,7 @@ import lib.ConsoleIO;
 import models.Players;
 import models.RoleName;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 
 public class GameController {
@@ -17,6 +18,8 @@ public class GameController {
     private static int werewolfKills = 1;
     private static final int defaultWerewolfKills = 1;
     private static String currentGhostChar;
+    private static int spellcasterSilenced;
+    private static int oldHagBanished;
 
     /**
      * Starts the game of Werewolf
@@ -80,13 +83,30 @@ public class GameController {
             if(!currentGhostChar.isBlank()) {
                 ConsoleIO.promptForString("Last night everyone awoke to a vision of the character '" + currentGhostChar + "' Press ENTER to continue: ", true);
             }else{
-                ConsoleIO.promptForString("Last night the ghost was tired so he decided not to give you anything. Press ENTER to continue:", true);
+                ConsoleIO.promptForString("Last night the ghost was tired so he decided not to give you anything. Press ENTER to continue: ", true);
             }
         }
 
+        if(searchForAliveRole(RoleName.SPELLCASTER) || searchForDeadRoleGrave(RoleName.SPELLCASTER)){
+            if(spellcasterSilenced != -1) {
+                ConsoleIO.promptForString("The spellcaster chose to silence player " + spellcasterSilenced + " you must remain quiet and not make movements to influence the discussion until the next day." +
+                        "\nThis includes if you are on trial. Press ENTER to continue: ", true);
+            }
+            spellcasterSilenced = -1;
+        }
+
+        if((searchForAliveRole(RoleName.OLD_HAG) || searchForDeadRoleGrave(RoleName.OLD_HAG)) && oldHagBanished != -1){
+            ConsoleIO.promptForString("The Old Hag had enough of you and decided to banish player " + oldHagBanished + " you must IMMEDIATELY leave the room. You will be brought back tonight. Press ENTER to continue: ", true);
+
+            oldHagBanished = -1;
+
+        }
+
+
+
         //discussion time
         //run until the moderator presses enter
-        ConsoleIO.promptForString("It is now discussion time\n" +
+        ConsoleIO.promptForString("\nIt is now discussion time\n" +
                 "Press ENTER when discussion time is over: ", true);
 
         //put people on trial
@@ -174,13 +194,26 @@ public class GameController {
             }else{
                 ConsoleIO.displayString("GM, wake up the 'Cult Leader' so they can choose someone to indoctrinate into the church of the llama.");
             }
+            ConsoleIO.clearScreen();
         }
 
         if(searchForDeadRoleGrave(RoleName.GHOST)){
             if(dayNumber > 1) {
-                currentGhostChar = ConsoleIO.promptForString("What character would you like to output for the players: ", true);
+                currentGhostChar = ConsoleIO.promptForString("Ghost, What character would you like to output for the players: ", true);
                 ConsoleIO.clearScreen();
             }
+        }
+
+        if(searchForAliveRole(RoleName.SPELLCASTER)){
+            ConsoleIO.displayString("Spellcaster, Who would you like to silence today?");
+            spellcasterSilenced = villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions,false) - 1).getSeatNumber();
+            ConsoleIO.clearScreen();
+        }
+
+        if(searchForAliveRole(RoleName.OLD_HAG)){
+            ConsoleIO.displayString("Old Hag, Who do you wish to banish");
+            oldHagBanished = villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false) - 1).getSeatNumber();
+            ConsoleIO.clearScreen();
         }
 
         //Cursed
