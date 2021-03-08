@@ -46,9 +46,7 @@ public class GameController {
             if(isDay){
                 ConsoleIO.displayString("\nDay " + dayNumber);
                 //show Graveyard
-                ConsoleIO.displayString("\n" + outputGraveyard());
                 dayTime();
-                ConsoleIO.displayString("\n" + outputGraveyard());
                 isDay = false;
             }else{
                 dayNumber++;
@@ -450,8 +448,8 @@ public class GameController {
      */
     private static void votingTime(int player1, int player2){
 
-        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player" + player1 + ": ", 0, villagePeople.size()-2);
-        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save player" + player1 + ": ", 0, villagePeople.size()-2);
+        int votesToKillPlayer1 = ConsoleIO.promptForInt("Votes to kill player " + player1 + ": ", 0, villagePeople.size()-2);
+        votesToKillPlayer1 -= ConsoleIO.promptForInt("Votes to save player " + player1 + ": ", 0, villagePeople.size()-2);
 
 
         int votesToKillPlayer2 = ConsoleIO.promptForInt("Votes to kill player " + player2 + ": ", 0, villagePeople.size()-2);
