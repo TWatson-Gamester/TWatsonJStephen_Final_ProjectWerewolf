@@ -20,5 +20,6 @@ public enum RoleName {
     GHOST,
     SPELLCASTER,
     OLD_HAG,
-    SORCERESS
+    SORCERESS,
+    AURA_SEER
 }

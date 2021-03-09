@@ -164,7 +164,8 @@ public class WerewolfMainMenu {
                 "GHOST",
                 "SPELLCASTER",
                 "OLD_HAG",
-                "SORCERESS"
+                "SORCERESS",
+                "AURA_SEER"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
@@ -319,6 +320,7 @@ public class WerewolfMainMenu {
             case GHOST:
             case SPELLCASTER:
             case OLD_HAG:
+            case AURA_SEER:
                 player.setCurrentRole(roleToAdd);
                 player.setVillage(true);
                 player.setSeatNumber(seatNumber);
@@ -401,6 +403,9 @@ public class WerewolfMainMenu {
                 break;
             case "SORCERESS":
                 newRole.setName(RoleName.SORCERESS);
+                break;
+            case "AURA_SEER":
+                newRole.setName(RoleName.AURA_SEER);
                 break;
         }
         rolesInGame.add(newRole);

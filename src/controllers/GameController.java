@@ -247,6 +247,14 @@ public class GameController {
         }
         ConsoleIO.clearScreen();
 
+        //Aura Seer
+        if(searchForAliveRole(RoleName.AURA_SEER)){
+            searchPlayer(RoleName.AURA_SEER, menuOptions);
+        }else if(searchForDeadRoleGrave(RoleName.AURA_SEER)){
+            ConsoleIO.promptForString("GM, wake up the 'Aura Seer' and have them 'search a player', then press ENTER: ", true);
+        }
+        ConsoleIO.clearScreen();
+
         //Sorceress
         if(searchForAliveRole(RoleName.SORCERESS)){
             searchPlayer(RoleName.SORCERESS, menuOptions);
@@ -359,6 +367,15 @@ public class GameController {
                     ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is a Seer!!!");
                 } else{
                     ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is not a Seer");
+                }
+                break;
+            case AURA_SEER:
+                ConsoleIO.displayString("Aura Seer please choose a player to investigate");
+                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions,false);
+                if(villagePeople.get(searchedPerson - 1).getCurrentRole().getName() == RoleName.VILLAGER || villagePeople.get(searchedPerson - 1).getCurrentRole().getName() == RoleName.WEREWOLF){
+                    ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is either a Vilager or a Werewolf");
+                } else{
+                    ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is not a Vilager or a Werewolf");
                 }
                 break;
             default:
