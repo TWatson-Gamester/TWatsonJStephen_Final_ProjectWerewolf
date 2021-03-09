@@ -81,6 +81,8 @@ public class GameController {
      */
     private static void dayTime(){
 
+        Audio.playSound("morning_time.wav");
+
         if(searchForDeadRoleGrave(RoleName.GHOST) && dayNumber > 1){
             if(!currentGhostChar.isBlank()) {
                 ConsoleIO.promptForString("Last night everyone awoke to a vision of the character '" + currentGhostChar + "' Press ENTER to continue: ", true);
@@ -108,8 +110,9 @@ public class GameController {
 
         //discussion time
         //run until the moderator presses enter
-        ConsoleIO.promptForString("\nIt is now discussion time\n" +
-                "Press ENTER when discussion time is over: ", true);
+        ConsoleIO.promptForString("It is now discussion time, press ENTER: ", true);
+        Audio.playSound("Discussion Time.wav");
+        ConsoleIO.promptForString("Wait for music to end, then end Discussion time by pressing ENTER:", true);
 
         //put people on trial
         //ask who they want to put on trial
@@ -144,6 +147,7 @@ public class GameController {
      *      Werewolf / Werewolves kill a player
      */
     private static void nightTime(){
+        Audio.playSound("NighttimeAnnouncement.wav");
         ConsoleIO.promptForString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
                 "Press Enter to continue: ", true);
@@ -567,6 +571,7 @@ public class GameController {
         //If Werewolf Team has met victory conditions
         if(villagePeople.size() == 0 || werewolfTeam >= villageTeam){
             endGame = true;
+            Audio.playSound("WerewolfVictory.wav");
             if(werewolfTeam == 1 && searchForAliveRole(RoleName.LONE_WOLF)){
                 littleTimmy.append("Lone Wolf Win!").append('\n');
                 for(Players player : originalCast){
@@ -591,6 +596,7 @@ public class GameController {
             //If Village Team has met victory conditions
         }else if(werewolfTeam == 0){
             endGame = true;
+            Audio.playSound("VillageVictory.wav");
             littleTimmy.append("Village Wins!").append('\n');
             for(Players player : originalCast){
                 if(player.isVillage() && player.getCurrentRole().getName() != RoleName.TANNER && player.getCurrentRole().getName() != RoleName.CULT_LEADER){
@@ -608,6 +614,7 @@ public class GameController {
                 littleTimmy.append("\nThe Cult also wins!\n");
             }else{
                 littleTimmy.append("Cult wins!\n");
+                Audio.playSound("CultOnlyWin");
             }
             endGame = true;
             for(Players player : originalCast){
