@@ -253,6 +253,7 @@ public class GameController {
         } else if(searchForDeadRoleGrave(RoleName.SORCERESS)){
             ConsoleIO.promptForString("GM, wake up the 'Sorceress' and have them 'search a player', then press ENTER: ", true);
         }
+        ConsoleIO.clearScreen();
 
         //Werewolf
         if(dayNumber == 1){
