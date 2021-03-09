@@ -614,7 +614,7 @@ public class GameController {
                 littleTimmy.append("\nThe Cult also wins!\n");
             }else{
                 littleTimmy.append("Cult wins!\n");
-                Audio.playSound("CultOnlyWin");
+                Audio.playSound("CultOnlyWin.wav");
             }
             endGame = true;
             for(Players player : originalCast){
