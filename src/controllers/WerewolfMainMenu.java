@@ -80,22 +80,23 @@ public class WerewolfMainMenu {
      * Sets up the game for playing
      */
     private static void playGame(){
-        int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 20);
-        boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no: ", "Y", "N");
-        if(isCustomGame){
-            String customGameName = ConsoleIO.promptForString("What is the file name: ", true);
-            if(new File(dirName + "/" + customGameName).exists()){
-                readRolesFromFile(customGameName);
-            }else{
-                ConsoleIO.displayString("The file you searched for does not exist, we have given you " +
-                        "the default " + playerCount + " player game");
+        boolean gameNotReady = true;
+        do {
+            boolean isCustomGame = ConsoleIO.promptForBoolean("Is this going to be a Custom Game? Y for yes, N for no: ", "Y", "N");
+            if (isCustomGame) {
+                String customGameName = ConsoleIO.promptForString("What is the file name: ", true);
+                if (new File(dirName + "/" + customGameName).exists()) {
+                    readRolesFromFile(customGameName);
+                    gameNotReady = false;
+                } else {
+                    ConsoleIO.displayString("The File is not found, please try again");
+                }
+            } else {
+                int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 20);
                 readRolesFromFile("Preset" + playerCount);
+                gameNotReady = false;
             }
-            //Add Logic for the custom game play
-        } else{
-            //This will be the code underneath this
-            readRolesFromFile("Preset" + playerCount);
-        }
+        }while(gameNotReady);
 
         //List the roles that will be in the game for that file
         ConsoleIO.displayString("Roles that are in the game:");
