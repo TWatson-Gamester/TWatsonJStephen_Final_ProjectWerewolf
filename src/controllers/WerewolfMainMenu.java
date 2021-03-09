@@ -165,7 +165,9 @@ public class WerewolfMainMenu {
                 "SPELLCASTER",
                 "OLD_HAG",
                 "SORCERESS",
-                "AURA_SEER"
+                "AURA_SEER",
+                "VILLAGE_IDIOT",
+                "PACIFIST"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
@@ -321,6 +323,8 @@ public class WerewolfMainMenu {
             case SPELLCASTER:
             case OLD_HAG:
             case AURA_SEER:
+            case PACIFIST:
+            case VILLAGE_IDIOT:
                 player.setCurrentRole(roleToAdd);
                 player.setVillage(true);
                 player.setSeatNumber(seatNumber);
@@ -406,6 +410,12 @@ public class WerewolfMainMenu {
                 break;
             case "AURA_SEER":
                 newRole.setName(RoleName.AURA_SEER);
+                break;
+            case "VILLAGE_IDIOT":
+                newRole.setName(RoleName.VILLAGE_IDIOT);
+                break;
+            case "PACIFIST":
+                newRole.setName(RoleName.PACIFIST);
                 break;
         }
         rolesInGame.add(newRole);

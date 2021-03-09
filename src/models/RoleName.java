@@ -21,5 +21,7 @@ public enum RoleName {
     SPELLCASTER,
     OLD_HAG,
     SORCERESS,
-    AURA_SEER
+    AURA_SEER,
+    VILLAGE_IDIOT,
+    PACIFIST
 }
