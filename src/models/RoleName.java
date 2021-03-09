@@ -19,5 +19,6 @@ public enum RoleName {
     MINION,
     GHOST,
     SPELLCASTER,
-    OLD_HAG
+    OLD_HAG,
+    SORCERESS
 }

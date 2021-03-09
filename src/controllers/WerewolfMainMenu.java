@@ -25,7 +25,7 @@ public class WerewolfMainMenu {
                 "Play Game",
                 "Make a Custom Game",
                 "Player Rules",
-                "GM Rules"
+                "GM Tips / Rules"
         };
 
         createPresets();
@@ -67,7 +67,9 @@ public class WerewolfMainMenu {
                             "4) Don't lead the players to make decisions\n" +
                             "5) Keep a timer ready, you will need it for specific moments\n" +
                             "6) Keep the display window up for the players to view\n" +
-                            "7) You are not a player of the game, please don't act like one\n");
+                            "7) You are not a player of the game, please don't act like one\n" +
+                            "8) Have players go back to sleep at night before clicking ENTER\n" +
+                            "9) There will be times where when a player's role is dead, but not known it will be needed to lie about them waking up and doing a action\n");
                     break;
             }
         } while(continueLoop);
@@ -161,7 +163,8 @@ public class WerewolfMainMenu {
                 "MINION",
                 "GHOST",
                 "SPELLCASTER",
-                "OLD_HAG"
+                "OLD_HAG",
+                "SORCERESS"
         };
 
         writeTextToFile(dirName + "/" + nameOfFile,"Custom Preset \"" + nameOfFile + "\"\n" + numberOfPlayers);
@@ -320,6 +323,7 @@ public class WerewolfMainMenu {
                 player.setVillage(true);
                 player.setSeatNumber(seatNumber);
                 break;
+            case SORCERESS:
             case LONE_WOLF:
             case WOLF_CUB:
             case WEREWOLF:
@@ -337,101 +341,69 @@ public class WerewolfMainMenu {
      * @param roleToAdd the role of the player you would like to add to the game (String)
      */
     private static void addToRolesArray(String roleToAdd){
+        Roles newRole = new Roles();
         switch (roleToAdd) {
             case "VILLAGER":
-                Roles villager = new Roles();
-                villager.setName(RoleName.VILLAGER);
-                rolesInGame.add(villager);
+                newRole.setName(RoleName.VILLAGER);
                 break;
             case "SEER":
-                Roles seer = new Roles();
-                seer.setName(RoleName.SEER);
-                rolesInGame.add(seer);
+                newRole.setName(RoleName.SEER);
                 break;
             case "WEREWOLF":
-                Roles werewolf = new Roles();
-                werewolf.setName(RoleName.WEREWOLF);
-                rolesInGame.add(werewolf);
+                newRole.setName(RoleName.WEREWOLF);
                 break;
             case "CULT_LEADER":
-                Roles cultLeader = new Roles();
-                cultLeader.setName(RoleName.CULT_LEADER);
-                rolesInGame.add(cultLeader);
+                newRole.setName(RoleName.CULT_LEADER);
                 break;
             case "LYCAN":
-                Roles lycan = new Roles();
-                lycan.setName(RoleName.LYCAN);
-                rolesInGame.add(lycan);
+                newRole.setName(RoleName.LYCAN);
                 break;
             case "CURSED":
-                Roles cursed = new Roles();
-                cursed.setName(RoleName.CURSED);
-                rolesInGame.add(cursed);
+                newRole.setName(RoleName.CURSED);
                 break;
             case "TANNER":
-                Roles tanner = new Roles();
-                tanner.setName(RoleName.TANNER);
-                rolesInGame.add(tanner);
+                newRole.setName(RoleName.TANNER);
                 break;
             case "WOLF_CUB":
-                Roles wolfCub = new Roles();
-                wolfCub.setName(RoleName.WOLF_CUB);
-                rolesInGame.add(wolfCub);
+                newRole.setName(RoleName.WOLF_CUB);
                 break;
             case "CUPID":
-                Roles cupid = new Roles();
-                cupid.setName(RoleName.CUPID);
-                rolesInGame.add(cupid);
+                newRole.setName(RoleName.CUPID);
                 break;
             case "APPRENTICE_SEER":
-                Roles apprenticeSeer = new Roles();
-                apprenticeSeer.setName(RoleName.APPRENTICE_SEER);
-                rolesInGame.add(apprenticeSeer);
+                newRole.setName(RoleName.APPRENTICE_SEER);
                 break;
             case "BODYGUARD":
-                Roles bodyguard = new Roles();
-                bodyguard.setName(RoleName.BODYGUARD);
-                rolesInGame.add(bodyguard);
+                newRole.setName(RoleName.BODYGUARD);
                 break;
             case "HUNTER":
-                Roles hunter = new Roles();
-                hunter.setName(RoleName.HUNTER);
-                rolesInGame.add(hunter);
+                newRole.setName(RoleName.HUNTER);
                 break;
             case "WITCH":
-                Roles witch = new Roles();
-                witch.setName(RoleName.WITCH);
-                rolesInGame.add(witch);
+                newRole.setName(RoleName.WITCH);
                 break;
             case "LONE_WOLF":
-                Roles loneWolf = new Roles();
-                loneWolf.setName(RoleName.LONE_WOLF);
-                rolesInGame.add(loneWolf);
+                newRole.setName(RoleName.LONE_WOLF);
                 break;
             case "MASON":
-                Roles mason = new Roles();
-                mason.setName(RoleName.MASON);
-                rolesInGame.add(mason);
+                newRole.setName(RoleName.MASON);
             case "MINION":
-                Roles minion = new Roles();
-                minion.setName(RoleName.MINION);
-                rolesInGame.add(minion);
+                newRole.setName(RoleName.MINION);
                 break;
             case "GHOST":
-                Roles ghost = new Roles();
-                ghost.setName(RoleName.GHOST);
-                rolesInGame.add(ghost);
+                newRole.setName(RoleName.GHOST);
                 break;
             case "SPELLCASTER":
-                Roles spellcaster = new Roles();
-                spellcaster.setName(RoleName.SPELLCASTER);
-                rolesInGame.add(spellcaster);
+                newRole.setName(RoleName.SPELLCASTER);
                 break;
             case "OLD_HAG":
-                Roles oldHag = new Roles();
-                oldHag.setName(RoleName.OLD_HAG);
-                rolesInGame.add(oldHag);
+                newRole.setName(RoleName.OLD_HAG);
+                break;
+            case "SORCERESS":
+                newRole.setName(RoleName.SORCERESS);
+                break;
         }
+        rolesInGame.add(newRole);
     }
 
     /**

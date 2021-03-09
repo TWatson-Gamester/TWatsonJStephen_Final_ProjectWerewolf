@@ -3,8 +3,10 @@ package controllers;
 import lib.ConsoleIO;
 import models.Players;
 import models.RoleName;
+import sounds.Audio;
 
 import javax.management.relation.Role;
+import java.io.Console;
 import java.util.ArrayList;
 
 public class GameController {
@@ -175,6 +177,7 @@ public class GameController {
                 ConsoleIO.clearScreen();
             }
 
+            //Ghost
             if(searchForAliveRole(RoleName.GHOST)){
                 ConsoleIO.promptForString("GM, notify the ghost that they have died",true);
                 sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),false);
@@ -197,6 +200,7 @@ public class GameController {
             ConsoleIO.clearScreen();
         }
 
+        //Ghost
         if(searchForDeadRoleGrave(RoleName.GHOST)){
             if(dayNumber > 1) {
                 currentGhostChar = ConsoleIO.promptForString("Ghost, What character would you like to output for the players: ", true);
@@ -204,12 +208,14 @@ public class GameController {
             }
         }
 
+        //Spellcaster
         if(searchForAliveRole(RoleName.SPELLCASTER)){
             ConsoleIO.displayString("Spellcaster, Who would you like to silence today?");
             spellcasterSilenced = villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions,false) - 1).getSeatNumber();
             ConsoleIO.clearScreen();
         }
 
+        //Old Hag
         if(searchForAliveRole(RoleName.OLD_HAG)){
             ConsoleIO.displayString("Old Hag, Who do you wish to banish");
             oldHagBanished = villagePeople.get(ConsoleIO.promptForMenuSelection(menuOptions, false) - 1).getSeatNumber();
@@ -240,6 +246,13 @@ public class GameController {
             ConsoleIO.promptForString("GM, wake up the 'Seer' and have them 'search a player', then press ENTER: ", true);
         }
         ConsoleIO.clearScreen();
+
+        //Sorceress
+        if(searchForAliveRole(RoleName.SORCERESS)){
+            searchPlayer(RoleName.SORCERESS, menuOptions);
+        } else if(searchForDeadRoleGrave(RoleName.SORCERESS)){
+            ConsoleIO.promptForString("GM, wake up the 'Sorceress' and have them 'search a player', then press ENTER: ", true);
+        }
 
         //Werewolf
         if(dayNumber == 1){
@@ -335,6 +348,16 @@ public class GameController {
                     ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is on the Village team");
                 } else{
                     ConsoleIO.displayString("Player " + villagePeople.get(searchedPerson - 1).getSeatNumber() + " is on the Werewolf team");
+                }
+                break;
+            case SORCERESS:
+                ConsoleIO.displayString("Sorceress please choose a player to investigate");
+                searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions, false);
+                Players thePersonSearched = villagePeople.get(searchedPerson - 1);
+                if(thePersonSearched.getCurrentRole().getName() == RoleName.SEER || thePersonSearched.getCurrentRole().getName() == RoleName.APPRENTICE_SEER){
+                    ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is a Seer!!!");
+                } else{
+                    ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is not a Seer");
                 }
                 break;
             default:
