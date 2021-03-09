@@ -573,7 +573,7 @@ public class GameController {
             endGame = true;
             Audio.playSound("WerewolfVictory.wav");
             if(werewolfTeam == 1 && searchForAliveRole(RoleName.LONE_WOLF)){
-                littleTimmy.append("Lone Wolf Win!").append('\n');
+                littleTimmy.append("\nLone Wolf Win!").append('\n');
                 for(Players player : originalCast){
                     if(player.getCurrentRole().getName() == RoleName.LONE_WOLF){
                         player.setWon(true);
@@ -583,7 +583,7 @@ public class GameController {
                     }
                 }
             }else {
-                littleTimmy.append("Werewolves Win!").append('\n');
+                littleTimmy.append("\nWerewolves Win!").append('\n');
                 for (Players player : originalCast) {
                     if (!player.isVillage() && player.getCurrentRole().getName() != RoleName.LONE_WOLF) {
                         player.setWon(true);
@@ -597,7 +597,7 @@ public class GameController {
         }else if(werewolfTeam == 0){
             endGame = true;
             Audio.playSound("VillageVictory.wav");
-            littleTimmy.append("Village Wins!").append('\n');
+            littleTimmy.append("\nVillage Wins!").append('\n');
             for(Players player : originalCast){
                 if(player.isVillage() && player.getCurrentRole().getName() != RoleName.TANNER && player.getCurrentRole().getName() != RoleName.CULT_LEADER){
                     player.setWon(true);
