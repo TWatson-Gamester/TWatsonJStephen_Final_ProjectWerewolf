@@ -92,7 +92,7 @@ public class WerewolfMainMenu {
                     ConsoleIO.displayString("The File is not found, please try again");
                 }
             } else {
-                int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 50);
+                int playerCount = ConsoleIO.promptForInt("How many Players are there: ", 6, 20);
                 readRolesFromFile("Preset" + playerCount);
                 gameNotReady = false;
             }

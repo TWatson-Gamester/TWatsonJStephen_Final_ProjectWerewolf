@@ -49,7 +49,7 @@ public class Players {
     }
 
     public void setSeatNumber(int seatNumber) {
-        if(seatNumber > 0 && seatNumber < 21){
+        if(seatNumber > 0){
         this.seatNumber = seatNumber;
         }else{
             throw new IllegalArgumentException("This is not a valid seat.");

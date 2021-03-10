@@ -100,7 +100,7 @@ public class GameController {
         }
 
         if((searchForAliveRole(RoleName.OLD_HAG) || searchForDeadRoleGrave(RoleName.OLD_HAG)) && oldHagBanished != -1){
-            ConsoleIO.promptForString("The Old Hag had enough of you and decided to banish player " + oldHagBanished + " you must IMMEDIATELY leave the room. You will be brought back tonight. Press ENTER to continue: ", true);
+            ConsoleIO.promptForString("The Old Hag has had enough of you and decided to banish player " + oldHagBanished + " you must IMMEDIATELY leave the room. You will be brought back tonight. Press ENTER to continue: ", true);
 
             oldHagBanished = -1;
 
@@ -111,7 +111,7 @@ public class GameController {
         //discussion time
         //run until the moderator presses enter
         ConsoleIO.promptForString("It is now discussion time, press ENTER: ", true);
-        Audio.playSound("Discussion Time.wav");
+//        Audio.playSound("Discussion Time.wav");
         ConsoleIO.promptForString("Wait for music to end, then end Discussion time by pressing ENTER:", true);
 
         //put people on trial
@@ -181,25 +181,20 @@ public class GameController {
                 ConsoleIO.clearScreen();
             }
 
-            //Ghost
-            if(searchForAliveRole(RoleName.GHOST)){
-                ConsoleIO.promptForString("GM, notify the ghost that they have died",true);
-                sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),false);
-            }
         }
 
         //Cult Leader
         if(aliveCultMembers.size() > 0){
             if(numberOfCultLeaders < 3){
                 ConsoleIO.displayString("GM, silently wake up player " + aliveCultMembers.get(0).getSeatNumber() + " as they are the cult leader");
-                ConsoleIO.displayString("Cult Leader please choose someone to indoctrinate into the church of the llama.");
+                ConsoleIO.displayString("Cult Leader please choose someone to indoctrinate into the Church of the Llama.");
                 int playerToIndoctrinate = ConsoleIO.promptForMenuSelection(menuOptions, false);
                 if(!villagePeople.get(playerToIndoctrinate - 1).isCult()){
                     aliveCultMembers.add(villagePeople.get(playerToIndoctrinate - 1));
                     villagePeople.get(playerToIndoctrinate - 1).setCult(true);
                 }
             }else{
-                ConsoleIO.displayString("GM, wake up the 'Cult Leader' so they can choose someone to indoctrinate into the church of the llama.");
+                ConsoleIO.displayString("GM, wake up the 'Cult Leader' so they can choose someone to indoctrinate into the Church of the Llama.");
             }
             ConsoleIO.clearScreen();
         }
@@ -271,8 +266,10 @@ public class GameController {
         if(dayNumber == 1){
             ConsoleIO.promptForString("GM, wake up the 'Werewolf / Werewolves' and have them look for each other," +
                     "They don't kill this night ,then press ENTER: ", true);
+            ConsoleIO.clearScreen();
+            //Minion
             if(searchForAliveRole(RoleName.MINION)) {
-                ConsoleIO.promptForString("Gm, have the Werewolf Team all stick out their thumbs, and have the Minion Player wake up and look around" +
+                ConsoleIO.promptForString("GM, have the Werewolf Team all stick out their thumbs, and have the Minion Player wake up and look around" +
                         ", then press ENTER: ", true);
             }
         } else {
@@ -335,10 +332,18 @@ public class GameController {
         } else if(searchForDeadRoleGrave(RoleName.BODYGUARD)){
             ConsoleIO.promptForString("GM, wake up the 'Bodyguard' and have them 'protect a player', then press ENTER: ", true);
         }
+        ConsoleIO.clearScreen();
 
         //Sends all players that have been killed to the graveyard
         for(Players deadMan : playersToKill){
             sendToGrave(deadMan, false);
+        }
+
+        //Ghost
+        if(searchForAliveRole(RoleName.GHOST)){
+            ConsoleIO.promptForString("GM, notify the ghost that they have died, then press ENTER: ",true);
+            sendToGrave(findPlayerByRole(RoleName.GHOST, villagePeople),false);
+            ConsoleIO.clearScreen();
         }
     }
 
@@ -367,7 +372,7 @@ public class GameController {
                 ConsoleIO.displayString("Sorceress please choose a player to investigate");
                 searchedPerson = ConsoleIO.promptForMenuSelection(menuOptions, false);
                 Players thePersonSearched = villagePeople.get(searchedPerson - 1);
-                if(thePersonSearched.getCurrentRole().getName() == RoleName.SEER || thePersonSearched.getCurrentRole().getName() == RoleName.APPRENTICE_SEER){
+                if(thePersonSearched.getCurrentRole().getName() == RoleName.SEER || thePersonSearched.getCurrentRole().getName() == RoleName.APPRENTICE_SEER || thePersonSearched.getCurrentRole().getName() == RoleName.AURA_SEER){
                     ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is a Seer!!!");
                 } else{
                     ConsoleIO.displayString("Player " + thePersonSearched.getSeatNumber() + " is not a Seer");
