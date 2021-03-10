@@ -394,6 +394,7 @@ public class WerewolfMainMenu {
                 break;
             case "MASON":
                 newRole.setName(RoleName.MASON);
+                break;
             case "MINION":
                 newRole.setName(RoleName.MINION);
                 break;

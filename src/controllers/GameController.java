@@ -81,7 +81,7 @@ public class GameController {
      */
     private static void dayTime(){
 
-        Audio.playSound("morning_time.wav");
+//        Audio.playSound("morning_time.wav");
 
         if(searchForDeadRoleGrave(RoleName.GHOST) && dayNumber > 1){
             if(!currentGhostChar.isBlank()) {
@@ -147,7 +147,7 @@ public class GameController {
      *      Werewolf / Werewolves kill a player
      */
     private static void nightTime(){
-        Audio.playSound("NighttimeAnnouncement.wav");
+//        Audio.playSound("NighttimeAnnouncement.wav");
         ConsoleIO.promptForString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
                 "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
                 "Press Enter to continue: ", true);
