@@ -159,7 +159,7 @@ public class GameController {
             Audio.playSound("NighttimeAnnouncement.wav");
         }
         ConsoleIO.promptForString("The time is now 10:00 P.M.\nAs such, it is now officially nighttime." +
-                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werewolves bite...\n" +
+                "\nOk then...sweet dreams, everyone! Goodnight, sleep tight, dont let the werebugs bite...\n" +
                 "Press Enter to continue: ", true);
         ConsoleIO.clearScreen();
         ArrayList<Players> playersToKill = new ArrayList<>();
