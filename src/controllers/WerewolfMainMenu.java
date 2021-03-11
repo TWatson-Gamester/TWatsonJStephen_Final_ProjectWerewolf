@@ -98,6 +98,8 @@ public class WerewolfMainMenu {
             }
         }while(gameNotReady);
 
+        boolean muteSound = ConsoleIO.promptForBoolean("Would you like music, Y for yes, or N for no: ", "n", "y");
+
         //List the roles that will be in the game for that file
         ConsoleIO.displayString("Roles that are in the game:");
         for(Roles r : rolesInGame){
@@ -110,7 +112,7 @@ public class WerewolfMainMenu {
         ConsoleIO.promptForString("Press ENTER to start the game: ",true);
         ConsoleIO.clearScreen();
 
-        GameController.runGame(playersInGame);
+        GameController.runGame(playersInGame, muteSound);
     }
 
     /**
