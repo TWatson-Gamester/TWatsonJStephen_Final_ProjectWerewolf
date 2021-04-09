@@ -400,7 +400,7 @@ public class GameController {
             default:
                 ConsoleIO.displayString("How did you even get here???");
         }
-        ConsoleIO.promptForString("Press Enter to Continue", true);
+        ConsoleIO.promptForString("Press Enter to Continue: ", true);
     }
 
     /**
